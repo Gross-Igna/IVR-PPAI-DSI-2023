@@ -1,0 +1,37 @@
+import csv
+
+# TODO: revisar implementacion en radio buttons
+class GeneradorCSV:
+    def __init__(self, fecha):
+        self.fechaCreacion = fecha
+
+    def generar_csv_de_llamada(self, cliente, estado, duracion, preguntas, respuestas):
+        preg_resp = []
+        encabezado={f'Cliente: {cliente}',f'Estado: {estado}',f'Duracion: {duracion} segundos'}
+        for i in range(len(preguntas)):
+            preg_resp.append({
+                'Pregunta':preguntas[i],
+                'Respuesta':respuestas[i]})
+
+        with open('llamada.csv', mode='w', newline="") as file:
+
+            encabezadoWriter = csv.writer(file, delimiter=' ',quotechar='|')
+            encabezadoWriter.writerow(encabezado)
+
+            writer = csv.DictWriter(file, delimiter=',', fieldnames=['Pregunta', 'Respuesta'] )
+            writer.writeheader()
+
+            for i in preg_resp:
+                writer.writerow(i)
+
+
+preguntas = ['¿Que tan satisfecho esta con el servicio brindado?', '¿Que tan probable es que recomiende nuestros servicios?']
+respuestas = ['Muy satisfecho', 'Algo probable']
+cliente = 'Juan Perez'
+estado = 'Finalizada'
+duracion = 255
+x = []
+
+Gen = GeneradorCSV('07/06/2023')
+Gen.generar_csv_de_Llamada(cliente, estado, duracion, preguntas, respuestas)
+
