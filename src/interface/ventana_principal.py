@@ -10,6 +10,7 @@ from marco_descripcion import MarcoDescripcion
 from tabla import Tabla
 from label import Label
 from radio_buttons import RadioButton
+from src.database import db_utils as db
 
 
 class VentanaPrincipal(tk.Tk):
@@ -23,14 +24,14 @@ class VentanaPrincipal(tk.Tk):
 
         separador_inicial = Separator(self)
         separador_inicial.pack()
+        #TODO: ver trello
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
 
         button_habilitar = Button(self, "Buscar Llamadas")
         button_habilitar.pack()
 
-        llamadas = ["Llamada 1", "Llamada 2", "Llamada 3"]
-        # TODO: get llamadas de la base de datos
+        llamadas = db.get_llamadas_db()
         combobox_encuestas = Combobox(self, llamadas)
         combobox_encuestas.pack()
 
@@ -40,6 +41,7 @@ class VentanaPrincipal(tk.Tk):
         texto_box = TextoBox(self)
         texto_box.pack()
 
+        #TODO: hay que traer algo de la db aca?
         lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
 
         button_mostrar_llamada = Button(self, "Mostrar Llamadas")
