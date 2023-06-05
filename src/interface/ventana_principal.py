@@ -31,7 +31,8 @@ class VentanaPrincipal(tk.Tk):
         button_habilitar = Button(self, "Buscar Llamadas")
         button_habilitar.pack()
 
-        llamadas = db.get_llamadas_db()
+        #llamadas = db.get_llamadas_db()
+        llamadas = ["llamada1", "llamada2", "llamada3"]
         combobox_encuestas = Combobox(self, llamadas)
         combobox_encuestas.pack()
 
