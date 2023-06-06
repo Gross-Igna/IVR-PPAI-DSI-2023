@@ -1,4 +1,11 @@
-import classes.PantallaConsultarEncuesta
+from classes.PantallaConsultarEncuesta import PantallaConsultarEncuesta
 
-inicio = PantallaConsultarEncuesta
-inicio.opConsultarEncuesta()
+
+def main():
+    inicio = PantallaConsultarEncuesta()
+    inicio.opConsultarEncuesta()
+
+
+if __name__ == '__main__':
+    main()
+    

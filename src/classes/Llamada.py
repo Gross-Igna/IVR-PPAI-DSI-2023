@@ -68,8 +68,8 @@ class Llamada:
         fecha_fin = datetime.strptime(fechaFin, "%d-%m-%Y").date()
         fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d-%m-%Y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
-            tieneEncuesta = tieneEncuestaRespondida()
-            if tieneEncuesta:
+            tiene_encuesta = self.tieneEncuestaRespondida()
+            if tiene_encuesta:
                 return True
 
     def tieneEncuestaRespondida(self):

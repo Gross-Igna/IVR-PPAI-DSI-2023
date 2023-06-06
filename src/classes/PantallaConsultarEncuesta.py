@@ -1,71 +1,19 @@
-# class PantallaConsultarEncuesta:
-#     def __init__(self):
-#         self.__fechaFinPeriodo = None
-#         self.__fechaInicioPeriodo = None
-#         self.__llamadas = None
-#         self.__llamadaSeleccionada = None
-#         self.__opcionPresentacion = None
-
-#     def getFechaFinPeriodo(self):
-#         return self.fechaFinPeriodo
-
-#     def tomarFechaInicio(self, fecha):
-#         self.__fechaFinPeriodo = fecha
-
-#     def getFechaInicioPeriodo(self):
-#         return self.__fechaInicioPeriodo
-
-#     def tomarFechaFin(self, fecha):
-#         self.__fechaInicioPeriodo = fecha
-
-#     def mostrarLlamadasEncuestaRespondida(self):
-#         return self.__llamadas
-
-#     def setLlamadas(self, llamadas):
-#         self.__llamadas = llamadas
-
-#     def getLlamadaSeleccionada(self):
-#         return self.__llamadaSeleccionada
-
-#     def tomarSeleccionLlamada(self, llamada):
-#         self.__llamadaSeleccionada = llamada
-
-#     def getOpcionPresentacion(self):
-#         return self.__opcionPresentacion
-
-#     def tomarOpcionPresentacion(self, opcion):
-#         self.__opcionPresentacion = opcion
-
-#     def opConsultarEncuesta():
-
-#     def habilitarPantalla():
-
-#     def solicitarSeleccionPeriodo():
-
-#     def solicitarSeleccionLlamada():
-
-#     def mostrarLlamadaEncuesta():
-
-#     def solicitarSeleccionPresentacion():
-
 import tkinter as tk
-from tkinter import messagebox
+from src.interface.titulo import Titulo
+from src.interface.button import Button
+from src.interface.combobox import Combobox
+from src.interface.box_texto import TextoBox
+from src.interface.separator import Separator
+from src.interface.etiquetas import Etiqueta
+from src.interface.marco_descripcion import MarcoDescripcion
+from src.interface.tabla import Tabla
+from src.interface.label import Label
+from src.interface.radio_buttons import RadioButton
+from src.interface.fechas_selector import FechasSelector
+from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
 
-from interface.fechas_selector import FechasSelector
-from interface.titulo import Titulo
-from interface.button import Button
-from interface.combobox import Combobox
-from interface.box_texto import TextoBox
-from interface.separator import Separator
-from interface.etiquetas import Etiqueta
-from interface.marco_descripcion import MarcoDescripcion
-from interface.tabla import Tabla
-from interface.label import Label
-from interface.radio_buttons import RadioButton
 
-import GestorConsultarEncuestas
-
-class PantallaConsultarEncuesta(tk.Frame):
+class PantallaConsultarEncuesta(tk.Tk):
     def __init__(self):
         super().__init__()
 
@@ -81,9 +29,9 @@ class PantallaConsultarEncuesta(tk.Frame):
         self.fecha_selector = FechasSelector(self)
         self.fecha_selector.pack()
 
-        button_habilitar = Button(self, "Buscar Llamadas", fecha_selector)
+        button_habilitar = Button(self, "Buscar Llamadas", self.fecha_selector, 'las llamadas' )
         button_habilitar.pack()
-        fecha_llamada_seleccionada = button_habilitar.get_llamada_seleccionada()
+        self.fecha_llamada_seleccionada = button_habilitar.get_fechas()
 
         button_consultar = Button(self, "Consultar Llamada")
         button_consultar.pack()
@@ -91,7 +39,7 @@ class PantallaConsultarEncuesta(tk.Frame):
         texto_box = TextoBox(self)
         texto_box.pack()
 
-        llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
+        #llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
 
         lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
         # TODO mostrar la llamada seleccionada
@@ -136,24 +84,18 @@ class PantallaConsultarEncuesta(tk.Frame):
         gestor = GestorConsultarEncuestas()
         gestor.consultarEncuesta(self)
 
-    def solicitarSeleccionPeriodo():
-        fechaInicio = self.tomarFechaInicio()
-        fechaFin = self.tomarFechaFin()
-        return [fechaInicio , fechaFin]
+    def solicitarSeleccionPeriodo(self):
+        fecha_inicio = self.tomarFechaInicio()
+        fecha_fin = self.tomarFechaFin()
+        return [fecha_inicio, fecha_fin]
 
-    def tomarFechaInicio():
-        fechaInicio = self.fecha_llamada_seleccionada[0]
-        return fechaInicio
+    def tomarFechaInicio(self):
+        fecha_inicio = self.fecha_llamada_seleccionada[0]
+        return fecha_inicio
 
-    def tomarFechaFin():
-        fechaFin = self.fecha_llamada_seleccionada[1]
-        return fechaFin
+    def tomarFechaFin(self):
+        fecha_fin = self.fecha_llamada_seleccionada[1]
+        return fecha_fin
 
-    
-
-
-
-    
-
-
-    
+    def mostrarLlamadaEncuestaRespondida(self, llamadas: list):
+        combobox = Combobox(self, llamadas)

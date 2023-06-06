@@ -9,7 +9,3 @@ class Combobox(tk.Frame):
         self.combobox = tk.ttk.Combobox(self, values=datos)
         self.combobox.pack(pady=5)
 
-    def get_llamada(self):
-        llamada = self.combobox.get()
-        # retorna la fecha de la llamada (__fechaHoraInicio)
-        return llamada

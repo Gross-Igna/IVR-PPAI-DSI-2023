@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkcalendar import DateEntry
-from label import Label
+from src.interface.label import Label
 
 
 class FechasSelector(tk.Frame):
