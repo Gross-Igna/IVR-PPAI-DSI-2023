@@ -1,3 +1,5 @@
+from ..classes.Pregunta import preguntas
+
 class Encuesta:
     def __init__(self):
         self.__descripcion = ""
@@ -28,3 +30,18 @@ class Encuesta:
 
     def setPreguntas(self, preguntas):
         self.__preguntas = preguntas
+
+encuesta1 = Encuesta()
+encuesta1.__descripcion = "Encuesta 1"
+encuesta1.__fechaInicioVigencia = "2010-06-01 10:00:00"
+encuesta1.__fechaFinVigencia = "2023-01-01 10:00:00"
+encuesta1.__preguntas = [preguntas[1], preguntas[2], preguntas[3]]
+
+encuesta2 = Encuesta()
+encuesta2.__descripcion = "Encuesta 2"
+encuesta2.__fechaInicioVigencia = "2023-01-01 10:00:00"
+encuesta1.__preguntas = [preguntas[0], preguntas[1], preguntas[2]]
+
+encuestas = [encuesta1, encuesta2]
+
+
