@@ -1,6 +1,6 @@
 import tkinter as tk
-from ..classes.Llamada import Llamada
 from ..classes.Llamada import llamadas
+from src.interface.button import Button
 
 class GestorConsultarEncuestas(tk.Tk):
     def __init__(self):
@@ -12,7 +12,7 @@ class GestorConsultarEncuestas(tk.Tk):
         self.__opcionPresentacion = None
 
     def getFechaFinPeriodo(self):
-        return self.fechaFinPeriodo
+        return self.__fechaFinPeriodo
 
     def tomarFechaFin(self, fechas):
         self.__fechaFinPeriodo = fechas[1]
@@ -42,10 +42,19 @@ class GestorConsultarEncuestas(tk.Tk):
         self.__opcionPresentacion = opcion
 
     def consultarEncuesta(self, pantalla):
+        print("llego al consultar encuesta dentro de gestor")
         fechas = pantalla.solicitarSeleccionPeriodo()
-        self.tomarFechaInicio(fechas)
-        self.tomarFechaFin(fechas)
-        self.obtenerLlamadasPeriodoConEncuesta()
+        # fechas = [fecha1, fecha2]
+        # ACTIVAR BOTON PARA QUE SE OPTENGAN LAS LALAMADAS Y LUEGO SE MUESTREN
+        boton = Button(pantalla, "Buscar LLamadas")
+        boton.pack()
+        if boton.precionado:
+            print("dnetro de if en consultar encuensta")
+            self.tomarFechaInicio(fechas)
+            self.tomarFechaFin(fechas)
+            llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
+
+            pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE)
 
     def obtenerLlamadasPeriodoConEncuesta(self):
         llamadas_p_encuestas = []

@@ -1,5 +1,6 @@
 from ..classes.Pregunta import preguntas
 
+
 class Encuesta:
     def __init__(self):
         self.__descripcion = ""
@@ -30,6 +31,7 @@ class Encuesta:
 
     def setPreguntas(self, preguntas):
         self.__preguntas = preguntas
+
 
 encuesta1 = Encuesta()
 encuesta1.__descripcion = "Encuesta 1"

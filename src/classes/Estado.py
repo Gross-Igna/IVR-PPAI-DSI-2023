@@ -8,14 +8,12 @@ class Estado:
     def setNombre(self, nombre):
         self.__nombre = nombre
 
-estados = [
-    Estado(),
-    Estado(),
-    Estado()
-]
 
-estados[0].nombre = "En curso"
+estado1 = Estado()
+estado1.setNombre("En curso")
+estado2 = Estado()
+estado2.setNombre("Iniciada")
+estado3 = Estado()
+estado3.setNombre("Finalizada")
 
-estado[1].mombre = "Iniciada"
-
-estado[2].nombre = "Finalizada"
+estados = [estado1, estado2, estado3]

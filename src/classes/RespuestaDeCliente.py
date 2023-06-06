@@ -1,5 +1,6 @@
 from ..classes.RespuestaPosible import respuestas_posibles
 
+
 class RespuestaDelCliente:
     def __init__(self):
         self.__fechaEncuesta = ""
@@ -16,6 +17,7 @@ class RespuestaDelCliente:
 
     def setRespuestaSeleccionada(self, respuesta):
         self.__respuestaSeleccionada = respuesta
+
 
 rta1 = RespuestaDelCliente()
 rta1.__fechaEncuesta = "2023-06-04 10:00:00"
@@ -42,4 +44,4 @@ rta6 = RespuestaDelCliente()
 rta6.__fechaEncuesta = "2023-06-05 12:00:00"
 rta6.__respuestaSeleccionada = respuestas_posibles[5]
 
-respuestasSeleccionadas = [rta1, rta2,rta3,rta4,rta5,rta6]
+respuestasSeleccionadas = [rta1, rta2, rta3, rta4, rta5, rta6]

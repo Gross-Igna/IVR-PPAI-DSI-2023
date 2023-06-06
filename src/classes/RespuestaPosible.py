@@ -15,6 +15,7 @@ class RespuestaPosible:
     def setValor(self, valor):
         self.__valor = valor
 
+
 respuestas_p1 = RespuestaPosible()
 respuestas_p1.descripcion = "Satisfecho"
 respuestas_p1.valor = 0

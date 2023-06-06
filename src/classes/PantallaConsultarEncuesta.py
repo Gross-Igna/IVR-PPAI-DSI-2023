@@ -11,6 +11,7 @@ from src.interface.label import Label
 from src.interface.radio_buttons import RadioButton
 from src.interface.fechas_selector import FechasSelector
 from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
+from src.classes.Llamada import llamadas
 
 
 class PantallaConsultarEncuesta(tk.Tk):
@@ -26,12 +27,10 @@ class PantallaConsultarEncuesta(tk.Tk):
         separador_inicial.pack()
         # Selecionar fechas
 
-        self.fecha_selector = FechasSelector(self)
-        self.fecha_selector.pack()
-
-        button_habilitar = Button(self, "Buscar Llamadas", self.fecha_selector, 'las llamadas' )
+        button_habilitar = Button(self, "Buscar Llamadas")
         button_habilitar.pack()
-        self.fecha_llamada_seleccionada = button_habilitar.get_fechas()
+        # self.fecha_llamada_seleccionada = button_habilitar.get_fechas()
+        # deberia tener este valor: [6/14/2023, 05/14/2023]
 
         button_consultar = Button(self, "Consultar Llamada")
         button_consultar.pack()
@@ -77,25 +76,33 @@ class PantallaConsultarEncuesta(tk.Tk):
         boton_aceptar.pack()
     
     def opConsultarEncuesta(self):
+        print("Llego al consultar encuesta EN PANTALLA")
         self.habilitarPantalla()
 
     def habilitarPantalla(self):
+        print("LLego al habilitar pantalla")
         self.mainloop()
         gestor = GestorConsultarEncuestas()
         gestor.consultarEncuesta(self)
+        print(f"gestor: {gestor}")
+        print('NO ejecuta el gestor')
 
     def solicitarSeleccionPeriodo(self):
-        fecha_inicio = self.tomarFechaInicio()
-        fecha_fin = self.tomarFechaFin()
+        print("llega a solicitarseleccion periodo")
+        fecha_selector = FechasSelector(self)
+        fecha_selector.pack()
+        fecha_inicio = self.tomarFechaInicio(fecha_selector)
+        fecha_fin = self.tomarFechaFin(fecha_selector)
         return [fecha_inicio, fecha_fin]
 
-    def tomarFechaInicio(self):
-        fecha_inicio = self.fecha_llamada_seleccionada[0]
-        return fecha_inicio
+    def tomarFechaInicio(self, fecha_selector):
+        fecha_inicio = fecha_selector.get_fecha_seleccionada()
+        return fecha_inicio[0]
 
-    def tomarFechaFin(self):
-        fecha_fin = self.fecha_llamada_seleccionada[1]
-        return fecha_fin
+    def tomarFechaFin(self, fecha_selector):
+        fecha_fin = fecha_selector.get_fecha_seleccionada()
+        return fecha_fin[1]
 
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list):
         combobox = Combobox(self, llamadas)
+        combobox.pack()

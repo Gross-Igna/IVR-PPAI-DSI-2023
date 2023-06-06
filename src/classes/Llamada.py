@@ -1,8 +1,8 @@
 from datetime import datetime
-
 from ..classes.Cliente import clientes
 from ..classes.CambioEstado import cambios_estado
-from ..classes.RespuestaDelCliente import respuestasSeleccionadas
+from ..classes.RespuestaDeCliente import respuestasSeleccionadas
+
 
 class Llamada:
     """En el constructor se inicializan los atributos"""
@@ -85,6 +85,7 @@ class Llamada:
     def tieneEncuestaRespondida(self):
         return self.__encuestaEnviada
 
+
 # Crear una lista de objetos de clase Llamada
 llamadas = [
     Llamada(),
@@ -102,7 +103,7 @@ llamada1.observacionAuditor = "Observación del auditor 1"
 llamada1.fechaHoraInicio = "2023-06-03 10:00:00"
 llamada1.cliente = clientes[0]
 llamada1.cambios_estado = [cambios_estado[0], cambios_estado[1], cambios_estado[2]]
-llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[0],respuestasSeleccionadas[1],respuestasSeleccionadas[2]]
+llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]]
 
 
 # Acceder a los atributos de otro objeto de la lista
@@ -115,7 +116,7 @@ llamada2.observacionAuditor = "Observación del auditor 2"
 llamada2.fechaHoraInicio = "2023-06-03 12:00:00"
 llamada2.cliente = clientes[1]
 llamada2.cambios_estado = [cambios_estado[3], cambios_estado[4]]
-llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3],respuestasSeleccionadas[4],respuestasSeleccionadas[5]]
+llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]]
 
 # Acceder a los atributos de otro objeto de la lista
 llamada3 = llamadas[2]

@@ -16,21 +16,6 @@ from radio_buttons import RadioButton
 
 # este es nuestro gestor
 
-def obtener_llamadas_periodo_con_encuesta(fechas):
-    llamadas_p_encuestas = []
-    for llamada in llamadas:
-        if llamada.es_de_periodo(fechas):
-            llamadas_p_encuestas.append(llamada)
-
-    return llamadas_p_encuestas
-
-
-def obtener_llamada_por_fecha(fecha_llamada):
-    for llamada in llamadas:
-        if llamada.__fechaHoraInicio == fecha_llamada:
-            return llamada
-
-
 class VentanaPrincipal(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -47,9 +32,9 @@ class VentanaPrincipal(tk.Tk):
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
 
-        button_habilitar = Button(self, "Buscar Llamadas", fecha_selector)
+        button_habilitar = Button(self, "Buscar Llamadas")
         button_habilitar.pack()
-        fecha_llamada_seleccionada = button_habilitar.get_llamada_seleccionada()
+        # fecha_llamada_seleccionada = button_habilitar.get_llamada_seleccionada()
 
         button_consultar = Button(self, "Consultar Llamada")
         button_consultar.pack()
@@ -57,7 +42,7 @@ class VentanaPrincipal(tk.Tk):
         texto_box = TextoBox(self)
         texto_box.pack()
 
-        llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
+        #llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
 
         lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
         # TODO mostrar la llamada seleccionada

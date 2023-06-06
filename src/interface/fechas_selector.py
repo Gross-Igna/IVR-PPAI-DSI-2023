@@ -24,3 +24,6 @@ class FechasSelector(tk.Frame):
 
     def get_fecha_seleccionada(self):
         return [self.cal_inicio.get(), self.cal_fin.get()]
+
+        # retorna [6/14/2023, 05/14/2023]
+

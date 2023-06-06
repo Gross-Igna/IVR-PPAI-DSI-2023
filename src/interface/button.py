@@ -8,34 +8,32 @@ def mostrar_exito():
 
 
 class Button(tk.Frame):
-    def __init__(self, master, placeholder, fecha_selector=None, llamadas_en_periodo=None):
+    def __init__(self, master, placeholder):
         super().__init__(master)
 
-        self.fecha_selector = fecha_selector
+        self.precionado = False
 
         if placeholder == "Aceptar":
             self.button = tk.Button(self, text="Aceptar", command=mostrar_exito, state='normal')
             self.button.pack(pady=10)
         elif placeholder == "Buscar Llamadas":
-            self.button = tk.Button(self, text="Buscar Llamadas", command=llamadas_en_periodo, state='normal')
+            self.button = tk.Button(self, text="Buscar Llamadas", command=self.cambio_de_estado, state='normal')
             self.button.pack(pady=10)
-            # fechas_seleccionadas = self.get_fechas()
-            # if len(llamadas_en_periodo) > 0:
-            #     combobox_encuestas = Combobox(self, llamadas_en_periodo)
-            #     combobox_encuestas.pack()
-            #     self.llamada_seleccionada = combobox_encuestas.get_llamada()
-            # else:
-            #     messagebox.showinfo("Éxito", "No hay llamadas en el periodo seleccionado.")
+
         else:
             self.button = tk.Button(self, text=placeholder,)
             self.button.pack(pady=5)
 
-    def get_fechas(self):
-        if self.fecha_selector:
-            fechas = self.fecha_selector.get_fecha_seleccionada()
-            return fechas
+    def cambio_de_estado(self):
+        self.precionado = True
 
-    def get_llamada_seleccionada(self):
-        if self.llamada_seleccionada:
-            llamada = self.llamada_seleccionada
-            return llamada
+#    def get_fechas(self):
+#        if self.fecha_selector:
+#            fechas = self.fecha_selector.get_fecha_seleccionada()
+#            return fechas
+#        #  retorna [6/14/2023, 05/14/2023]
+#    def get_llamada_seleccionada(self):
+#        if self.llamada_seleccionada:
+#            llamada = self.llamada_seleccionada
+#            return llamada
+#

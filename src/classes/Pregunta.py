@@ -1,5 +1,6 @@
 from ..classes.RespuestaPosible import respuestas_posibles
 
+
 class Pregunta:
     def __init__(self):
         self.__pregunta = ""
@@ -17,6 +18,7 @@ class Pregunta:
     def setRespuestasPosibles(self, respuestas):
         self.__respuestasPosibles = respuestas
 
+
 pregunta1 = Pregunta()
 pregunta1.__pregunta = "Cuál es su nivel de satisfacción con nuestro servicio?"
 pregunta1.__respuestasPosibles = [respuestas_posibles[0], respuestas_posibles[1], respuestas_posibles[2]]
@@ -31,6 +33,6 @@ pregunta3.__respuestasPosibles = [respuestas_posibles[5],respuestas_posibles[6]]
 
 pregunta4 = Pregunta()
 pregunta4.__pregunta = "¿En qué medida hemos resuelto su problema o necesidad?"
-pregunta4.__respuestasPosibles = [respuestas_posibles[7],respuestas_posibles[8], respuestas_posibles[9]]
+pregunta4.__respuestasPosibles = [respuestas_posibles[7], respuestas_posibles[8], respuestas_posibles[9]]
 
 preguntas = [pregunta1, pregunta2, pregunta3, pregunta4]
