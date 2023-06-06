@@ -11,7 +11,6 @@ class FechasSelector(tk.Frame):
         self.frame_fechas.pack()
 
         self.label_inicio = Label(self.frame_fechas, "Fecha de Inicio")
-        # self.label_inicio = tk.Label(self.frame_fechas, text="Fecha de inicio")
         self.label_inicio.pack(side="left")
 
         self.cal_inicio = DateEntry(self.frame_fechas, width=12, background='darkblue', foreground='white', borderwidth=2)
@@ -22,3 +21,6 @@ class FechasSelector(tk.Frame):
 
         self.cal_fin = DateEntry(self.frame_fechas, width=12, background='darkblue', foreground='white', borderwidth=2)
         self.cal_fin.pack(side="left", padx=5)
+
+    def get_fecha_seleccionada(self):
+        return [self.cal_inicio.get(), self.cal_fin.get()]

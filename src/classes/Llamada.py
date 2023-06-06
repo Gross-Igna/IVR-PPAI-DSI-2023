@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Llamada:
     """En el constructor se inicializan los atributos"""
     """El doble guión es para encapsular el atributo (name mangling)"""
@@ -9,6 +12,7 @@ class Llamada:
         self.__observacionAuditor = ""
         self.__respuestasDeEncuesta = None
         self.__cambioEstado = None
+        self.__fechaHoraInicio = ''  # formato 2023-06-03
 
     """Getters y Setters"""
     def getDescripcionOperador(self):
@@ -52,3 +56,11 @@ class Llamada:
 
     def setCambioEstado(self, cambio):
         self.__cambioEstado = cambio
+
+    def es_de_periodo(self, fechas):
+        fecha_inicio = datetime.strptime(fechas[0], "%d-%m-%Y").date()
+        fecha_fin = datetime.strptime(fechas[1], "%d-%m-%Y").date()
+        fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d-%m-%Y").date()
+        if fecha_inicio <= fecha_llamada <= fecha_fin:
+            if self.__respuestasDeEncuesta:
+                return True

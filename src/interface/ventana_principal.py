@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
+
 from fechas_selector import FechasSelector
 from titulo import Titulo
 from button import Button
@@ -10,7 +12,23 @@ from marco_descripcion import MarcoDescripcion
 from tabla import Tabla
 from label import Label
 from radio_buttons import RadioButton
-from src.database import db_utils as db
+
+
+# este es nuestro gestor
+
+def obtener_llamadas_periodo_con_encuesta(fechas):
+    llamadas_p_encuestas = []
+    for llamada in llamadas:
+        if llamada.es_de_periodo(fechas):
+            llamadas_p_encuestas.append(llamada)
+
+    return llamadas_p_encuestas
+
+
+def obtener_llamada_por_fecha(fecha_llamada):
+    for llamada in llamadas:
+        if llamada.__fechaHoraInicio == fecha_llamada:
+            return llamada
 
 
 class VentanaPrincipal(tk.Tk):
@@ -24,17 +42,14 @@ class VentanaPrincipal(tk.Tk):
 
         separador_inicial = Separator(self)
         separador_inicial.pack()
-        #TODO: ver trello
+        # Selecionar fechas
+
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
 
-        button_habilitar = Button(self, "Buscar Llamadas")
+        button_habilitar = Button(self, "Buscar Llamadas", fecha_selector)
         button_habilitar.pack()
-
-        #llamadas = db.get_llamadas_db()
-        llamadas = ["llamada1", "llamada2", "llamada3"]
-        combobox_encuestas = Combobox(self, llamadas)
-        combobox_encuestas.pack()
+        fecha_llamada_seleccionada = button_habilitar.get_llamada_seleccionada()
 
         button_consultar = Button(self, "Consultar Llamada")
         button_consultar.pack()
@@ -42,16 +57,16 @@ class VentanaPrincipal(tk.Tk):
         texto_box = TextoBox(self)
         texto_box.pack()
 
-        #TODO: hay que traer algo de la db aca?
-        lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
+        llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
 
+        lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
+        # TODO mostrar la llamada seleccionada
         button_mostrar_llamada = Button(self, "Mostrar Llamadas")
         button_mostrar_llamada.pack()
 
         separador2 = Separator(self)
         separador2.pack()
 
-        # TODO: pasar datos de etiqueta por parametro
         etiquetas = Etiqueta(self)
         etiquetas.pack()
 
@@ -78,6 +93,10 @@ class VentanaPrincipal(tk.Tk):
 
         boton_aceptar = Button(self, "Aceptar")
         boton_aceptar.pack()
+
+
+# deberiamos tener hardcodeados las llamadas
+llamadas = []
 
 
 if __name__ == "__main__":
