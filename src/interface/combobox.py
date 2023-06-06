@@ -6,11 +6,7 @@ class Combobox(tk.Frame):
     def __init__(self, master, datos):
         super().__init__(master)
 
-        array_fechas = []
-        for dato in datos:
-            array_fechas.append(dato.__fechaHoraInicio)
-
-        self.combobox = tk.ttk.Combobox(self, values=array_fechas)
+        self.combobox = tk.ttk.Combobox(self, values=datos)
         self.combobox.pack(pady=5)
 
     def get_llamada(self):

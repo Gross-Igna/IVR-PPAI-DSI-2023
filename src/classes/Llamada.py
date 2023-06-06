@@ -57,10 +57,21 @@ class Llamada:
     def setCambioEstado(self, cambio):
         self.__cambioEstado = cambio
 
-    def es_de_periodo(self, fechas):
-        fecha_inicio = datetime.strptime(fechas[0], "%d-%m-%Y").date()
-        fecha_fin = datetime.strptime(fechas[1], "%d-%m-%Y").date()
+    def getFechaHoraInicio(self):
+        return self.__fechaHoraInicio
+
+    def setFechaHoraInicio(self, fecha):
+        self.__fechaHoraInicio = fecha
+
+    def esDePeriodo(self, fechaInicio , fechaFin):
+        fecha_inicio = datetime.strptime(fechaInicio, "%d-%m-%Y").date()
+        fecha_fin = datetime.strptime(fechaFin, "%d-%m-%Y").date()
         fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d-%m-%Y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
-            if self.__respuestasDeEncuesta:
+            tieneEncuesta = tieneEncuestaRespondida()
+            if tieneEncuesta:
                 return True
+
+    def tieneEncuestaRespondida(self):
+        return self.__encuestaEnviada
+

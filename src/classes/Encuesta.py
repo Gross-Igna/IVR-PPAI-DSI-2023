@@ -1,7 +1,8 @@
 class Encuesta:
     def __init__(self):
         self.__descripcion = ""
-        self.__fechaVigencia = ""
+        self.__fechaInicioVigencia = ""
+        self.__fechaFinVigencia = ""
         self.__preguntas = []
 
     def getDescripcion(self):
@@ -10,11 +11,17 @@ class Encuesta:
     def setDescripcion(self, descripcion):
         self.__descripcion = descripcion
 
-    def getFechaVigencia(self):
-        return self.__fechaVigencia
+    def getFechaInicioVigencia(self):
+        return self.__fechaInicioVigencia
 
-    def setFechaVigencia(self, fecha):
-        self.__fechaVigencia = fecha
+    def setFechaInicioVigencia(self, fecha):
+        self.__fechaInicioVigencia = fecha
+
+    def getFechaFinVigencia(self):
+        return self.__fechaFinVigencia
+
+    def setFechaFinVigencia(self, fecha):
+        self.__fechaFinVigencia = fecha
 
     def getPreguntas(self):
         return self.__preguntas
