@@ -47,18 +47,18 @@ class PantallaConsultarEncuesta(tk.Tk):
         separador2 = Separator(self)
         separador2.pack()
 
-        etiquetas = Etiqueta(self)
-        etiquetas.pack()
-
-        marco_desc = MarcoDescripcion(self)
-        marco_desc.pack()
+        # etiquetas = Etiqueta(self)
+        # etiquetas.pack()
+#
+        # marco_desc = MarcoDescripcion(self)
+        # marco_desc.pack()
 
         separador3 = Separator(self)
         separador3.pack()
         # TODO: pasar los datos a la tabla por parametro
-        tabla = Tabla(self)
-        tabla.pack()
-
+        # tabla = Tabla(self)
+        # tabla.pack()
+#
         separador4 = Separator(self)
         separador4.pack()
 
@@ -84,42 +84,50 @@ class PantallaConsultarEncuesta(tk.Tk):
         gestor.consultarEncuesta(self)
         # self.mainloop()
 
-
     def solicitarSeleccionPeriodo(self):
         print("llega a solicitarseleccion periodo")  # llego
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
         fecha_inicio = self.tomarFechaInicio(fecha_selector)
         fecha_fin = self.tomarFechaFin(fecha_selector)
-        return [fecha_inicio, fecha_fin]
+        return fecha_inicio, fecha_fin
 
     def tomarFechaInicio(self, fecha_selector):
-        fecha_inicio = fecha_selector.get_fecha_seleccionada()
-        return fecha_inicio[0]
+        fechas = fecha_selector.get_fecha_seleccionada()
+        fecha_inicio = fechas[0]
+        return fecha_inicio
 
     def tomarFechaFin(self, fecha_selector):
-        fecha_fin = fecha_selector.get_fecha_seleccionada()
-        return fecha_fin[1]
+        fechas = fecha_selector.get_fecha_seleccionada()
+        fecha_fin = fechas[1]
+        return fecha_fin
 
-    def mostrarLlamadaEncuestaRespondida(self, llamadas: list):
+    def mostrarLlamadaEncuestaRespondida(self, llamadas: list, gestor):
         combobox = Combobox(self, llamadas)
         combobox.pack()
 
-        llamada_seleccionada = self.tomarSeleccionLlamada(combobox)
+        llamada_seleccionada = self.tomarSeleccionLlamada(combobox, gestor)
         # tomar seleccion llamada gestor
         print(llamada_seleccionada)
 
-    def tomarSeleccionLlamada(self, combobox):
+    def tomarSeleccionLlamada(self, combobox, gestor):
         llamada_seleccionada = combobox.get_llamada_selec_combo()
-        # TODO TRATAR DE CONSEGUIR AL GESTOR ACA
-        # gestor.tomarSeleccionLlamada(llamada_seleccinada)
+        gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
         return llamada_seleccionada
 
-    def mostrarLlamadaEncuesta(self):
+    def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta):
+        etiqueta = Etiqueta(self, datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2])  # nombre
+        etiqueta.pack()
 
-    def tomarSeleccionPresentacion(self):
-        opcion =
-        gestor.tomarOpcionPresentacion(opcion)
+        desc = MarcoDescripcion(self, datos_encuesta[0])
+        desc.pack()
+
+        tabla = Tabla(self, datos_encuesta[1], datos_seleccionada[3])  # datos_encuesta[0] encuesta, [1] preguntas, datos_selec[3] respuesta
+        tabla.pack()
+
+    #def tomarSeleccionPresentacion(self):
+    #    opcion =
+    #    gestor.tomarOpcionPresentacion(opcion)
 
 
 

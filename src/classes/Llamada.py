@@ -15,7 +15,7 @@ class Llamada:
         self.__observacionAuditor = ""
         self.__respuestasDeEncuesta = None
         self.__cambioEstado = None
-        self.__fechaHoraInicio = ''  # formato 2023-06-03
+        self.__fechaHoraInicio = ''  # formato 03-06-23 dd-mm-aa
         self.__cliente = None
 
     """Getters y Setters"""
@@ -94,8 +94,8 @@ class Llamada:
 
         cambios = self.getCambioEstado()
         for i in cambios:
-            esUltimo = i.esUltimoCambioEstado()
-            if esUltimo:
+            es_ultimo = i.esUltimoCambioEstado()
+            if es_ultimo:
                 estado = i.getEstado()
                 nombre_est = estado.getNombre()
 
@@ -105,12 +105,12 @@ class Llamada:
             desc = i.getDescripcionRta()
             descripciones.append(desc)
 
-        return nombre_cli,duracion,nombre_est,descripciones
+        return [nombre_cli, duracion, nombre_est, descripciones]
 
     def buscarFechaEncuesta(self):
         respuestas = self.getRespuestasDeEncuesta()
-        fecha = respuestas[0].getFechaEncuesta()
-        return fecha
+        fecha_encuesta = respuestas[0].getFechaEncuesta()
+        return fecha_encuesta
 
 # Crear una lista de objetos de clase Llamada
 llamadas = [

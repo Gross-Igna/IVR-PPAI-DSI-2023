@@ -23,6 +23,7 @@ class RespuestaDelCliente:
         descripcion = seleccionada.getDescripcionRta()
         return descripcion
 
+
 rta1 = RespuestaDelCliente()
 rta1.__fechaEncuesta = "2023-06-04 10:00:00"
 rta1.__respuestaSeleccionada = respuestas_posibles[2]

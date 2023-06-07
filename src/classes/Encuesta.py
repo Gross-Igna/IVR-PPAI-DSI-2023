@@ -12,10 +12,10 @@ class Encuesta:
         # dudoso: 29 va dentro de 28?
         preguntas = self.getPreguntas()
         desc_preguntas = []
-        for i in preguntas:
-            desc_una_pregunta = i.getDescripcionPregunta()
+        for pregunta in preguntas:  # array de objetos pregunta
+            desc_una_pregunta = pregunta.getDescripcionPregunta()
             desc_preguntas.append(desc_una_pregunta)
-        return self.__descripcion, desc_preguntas
+        return [self.__descripcion, desc_preguntas]
 
     def setDescripcion(self, descripcion):
         self.__descripcion = descripcion
