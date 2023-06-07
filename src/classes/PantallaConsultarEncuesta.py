@@ -108,11 +108,15 @@ class PantallaConsultarEncuesta(tk.Tk):
 
         llamada_seleccionada = self.tomarSeleccionLlamada(combobox, gestor)
         # tomar seleccion llamada gestor
+        print('en mostrar ll llamada seleccionaa', llamada_seleccionada)
+
         print(llamada_seleccionada)
+        gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
 
     def tomarSeleccionLlamada(self, combobox, gestor):
+        print('llega a tomar seleccion en pantalla')
         llamada_seleccionada = combobox.get_llamada_selec_combo()
-        gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
+        #gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
         return llamada_seleccionada
 
     def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta):

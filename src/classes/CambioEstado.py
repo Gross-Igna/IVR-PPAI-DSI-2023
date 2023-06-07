@@ -34,16 +34,16 @@ class CambioEstado:
 cambio1 = CambioEstado()  # iniciada para llamada 1
 cambio1.fechaHoraInicio = "2023-06-01 10:00:00"
 cambio1.fechaHoraFin = "2023-06-01 10:02:00"
-cambio1.estado = estados[1]
+cambio1.setEstado(estados[1])
 
 cambio2 = CambioEstado()  # en curso para llamada 1
 cambio2.fechaHoraInicio = "2023-06-01 10:02:00"
 cambio2.fechaHoraFin = "2023-06-01 10:04:00"
-cambio2.estado = estados[0]
+cambio2.setEstado(estados[0])
 
 cambio3 = CambioEstado()  # finalizada para llamada 1
 cambio3.fechaHoraInicio = "2023-06-01 10:04:00"
-cambio3.estado = estados[2]
+cambio3.setEstado(estados[2])
 
 cambio4 = CambioEstado()  # iniciada para llamada 2
 cambio4.fechaHoraInicio = "2023-06-01 12:00:00"

@@ -46,7 +46,6 @@ class GestorConsultarEncuestas(tk.Tk):
     def consultarEncuesta(self, pantalla):
         print("llego al consultar encuesta dentro de gestor")
         fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
-
         boton = Button(pantalla, "Buscar Llamadas")
         boton.pack()
         self.tomarFechaInicio(fecha_inicio)
@@ -67,19 +66,23 @@ class GestorConsultarEncuestas(tk.Tk):
 
     def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
         self.setLlamadaSeleccionada(llamada_seleccionada)
+        print("tomarSelec", llamada_seleccionada)
         self.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         # buscar la llamad
+        print("fecha seleccionada", llamada_fecha)
         for i in range(len(llamadas)):
             fecha_iteradora = llamadas[i].getFechaHoraInicio()
             if fecha_iteradora == llamada_fecha:
                 indice = i
+        # BORRAR SI O SI
+        indice = 0
         LA_llamada = llamadas[indice]
         datos_seleccionada = LA_llamada.mostrarLlamada()
         #  return [nombre_cli, duracion, nombre_est, descripciones[]]
         datos_encuesta = []
-        fecha_encuesta = llamada.buscarFechaEncuesta()
+        fecha_encuesta = LA_llamada.buscarFechaEncuesta()
         for encuesta in encuestas:
             es_vigente = encuesta.vigenteParaLaFecha(fecha_encuesta)
             if es_vigente:

@@ -127,9 +127,9 @@ llamada1.duracion = 120
 llamada1.setEncuestaEnviada(True)
 llamada1.observacionAuditor = "Observación del auditor 1"
 llamada1.setFechaHoraInicio("6/7/23")
-llamada1.cliente = clientes[0]
-llamada1.cambios_estado = [cambios_estado[0], cambios_estado[1], cambios_estado[2]]
-llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]]
+llamada1.setCliente(clientes[0])
+llamada1.setCambioEstado([cambios_estado[0], cambios_estado[1], cambios_estado[2]])
+llamada1.setRespuestasDeEncuesta([respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]])
 
 
 # Acceder a los atributos de otro objeto de la lista

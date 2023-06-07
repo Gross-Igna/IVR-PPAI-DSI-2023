@@ -12,4 +12,5 @@ class Combobox(tk.Frame):
         self.llamada_seleccionada = self.combobox.get()
 
     def get_llamada_selec_combo(self):
+        print('get del combo',self.llamada_seleccionada)
         return self.llamada_seleccionada

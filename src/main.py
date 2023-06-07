@@ -1,6 +1,5 @@
 from classes.PantallaConsultarEncuesta import PantallaConsultarEncuesta
 
-
 def main():
     inicio = PantallaConsultarEncuesta()
     inicio.opConsultarEncuesta()
