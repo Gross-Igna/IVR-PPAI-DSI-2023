@@ -15,22 +15,17 @@ class Button(tk.Frame):
             self.button = tk.Button(self, text=placeholder, command=mostrar_exito, state='normal')
             self.button.pack(pady=10)
         elif placeholder == "Buscar Llamadas":
-            print('llego al boton')
             self.button = tk.Button(self, text=placeholder, command=self.set_cambio_de_estado, state='normal')
             self.button.pack(pady=10)
         else:
-            print('salio por el else')
             self.button = tk.Button(self, text=placeholder,)
             self.button.pack(pady=5)
 
     def set_cambio_de_estado(self):
-        print('Cambio de estado')
         self.precionado = True
 
-        print(f'estado boton: {self.precionado}')
 
     def get_cambio_de_estado(self):
-        print("devolviendo el cambio de estado")
         return self.precionado
 
 

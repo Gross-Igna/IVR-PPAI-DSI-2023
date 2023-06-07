@@ -76,9 +76,9 @@ class Llamada:
     def esDePeriodo(self, fechaInicio , fechaFin):
         fecha_inicio = datetime.strptime(fechaInicio, "%d/%m/%y").date()
         fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
-        fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d/%m/%y").date()
-        if fecha_inicio <= fecha_llamada <= fecha_fin:
-            print('es entre fechas')
+        fecha_llamada = self.getFechaHoraInicio()
+        fecha_llamada_date = datetime.strptime(fecha_llamada, "%d/%m/%y").date()
+        if fecha_inicio <= fecha_llamada_date <= fecha_fin:
             tiene_encuesta = self.tieneEncuestaRespondida()
             if tiene_encuesta:
                 return True
@@ -126,7 +126,7 @@ llamada1.detalleAccionRequerida = "Detalle de la acción requerida 1"
 llamada1.duracion = 120
 llamada1.setEncuestaEnviada(True)
 llamada1.observacionAuditor = "Observación del auditor 1"
-llamada1.setFechaHoraInicio("6/7/23")
+llamada1.setFechaHoraInicio("6/6/23")
 llamada1.setCliente(clientes[0])
 llamada1.setCambioEstado([cambios_estado[0], cambios_estado[1], cambios_estado[2]])
 llamada1.setRespuestasDeEncuesta([respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]])
@@ -139,7 +139,7 @@ llamada2.detalleAccionRequerida = "Detalle de la acción requerida 2"
 llamada2.duracion = 180
 llamada2.setEncuestaEnviada(True)
 llamada2.observacionAuditor = "Observación del auditor 2"
-llamada2.setFechaHoraInicio("13/08/21")
+llamada2.setFechaHoraInicio("2/6/20")
 llamada2.cliente = clientes[1]
 llamada2.cambios_estado = [cambios_estado[3], cambios_estado[4]]
 llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]]

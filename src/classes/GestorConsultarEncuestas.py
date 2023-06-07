@@ -2,6 +2,7 @@ import tkinter as tk
 from ..classes.Llamada import llamadas
 from src.interface.button import Button
 from ..classes.Encuesta import encuestas
+from ..utils.generadorCSV import GeneradorCSV
 
 
 class GestorConsultarEncuestas(tk.Tk):
@@ -44,41 +45,38 @@ class GestorConsultarEncuestas(tk.Tk):
         self.__opcionPresentacion = opcion
 
     def consultarEncuesta(self, pantalla):
-        print("llego al consultar encuesta dentro de gestor")
-        fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
-        boton = Button(pantalla, "Buscar Llamadas")
-        boton.pack()
-        self.tomarFechaInicio(fecha_inicio)
-        self.tomarFechaFin(fecha_fin)
+        print("Para salir presione X")
+        fecha_inicio = input("Ingrese la fecha de inicio del periodo dd/mm/aa: ")
+        if fecha_inicio != "X":
+            self.tomarFechaInicio(fecha_inicio)
+        else:
+            exit()
+
+        fecha_fin = input("Ingrese la fecha de fin del periodo dd/mm/aa: ")
+        if fecha_fin != "X":
+            self.tomarFechaFin(fecha_fin)
+        else:
+            exit()
         llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
-        print(llamadas_PyE)
+        if len(llamadas_PyE) == 0:
+            print("No hay llamadas con encuesta respondida para el periodo")
+            exit()
         pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
 
     def obtenerLlamadasPeriodoConEncuesta(self):
         llamadas_p_encuestas = []
         for llamada in llamadas:
-            print('entro al for de obetener llamadas perdiod con encuetas')
-            if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
-                print('lo agrega al arreglo ')
+            if llamada.esDePeriodo(self.getFechaInicioPeriodo(), self.getFechaFinPeriodo()):
                 llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
-
         return llamadas_p_encuestas
 
-    def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
-        self.setLlamadaSeleccionada(llamada_seleccionada)
-        print("tomarSelec", llamada_seleccionada)
-        self.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
+    def tomarSeleccionLlamada(self, indice_seleccionada, pantalla):
+        self.setLlamadaSeleccionada(indice_seleccionada)
+        self.mostrarLlamadaSeleccionada(indice_seleccionada, pantalla)
 
-    def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
+    def mostrarLlamadaSeleccionada(self, indice_llamada, pantalla):
         # buscar la llamad
-        print("fecha seleccionada", llamada_fecha)
-        for i in range(len(llamadas)):
-            fecha_iteradora = llamadas[i].getFechaHoraInicio()
-            if fecha_iteradora == llamada_fecha:
-                indice = i
-        # BORRAR SI O SI
-        indice = 0
-        LA_llamada = llamadas[indice]
+        LA_llamada = llamadas[indice_llamada]
         datos_seleccionada = LA_llamada.mostrarLlamada()
         #  return [nombre_cli, duracion, nombre_est, descripciones[]]
         datos_encuesta = []
@@ -89,12 +87,19 @@ class GestorConsultarEncuestas(tk.Tk):
                 datos_encuesta = encuesta.getDescripcionEncuesta()
                 # datos_encuesta = ["encuesta 1", ["¿como calificaria..."]]
         if len(datos_encuesta):
-            pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta)
+            pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta, self)
         else:
-            print('sorry bro')
+            print('')
 
 
-    #def tomarSeleccionDePresentacion(self,opcion):
-    #    self.setOpcionPresentacion(opcion)
-    #    generador = GeneradorCSV()
-    #    generador.generar_csv_de_llamada()
+    def tomarSeleccionDePresentacion(self,opcion, datos_seleccionada, datos_encuesta):
+        self.setOpcionPresentacion(opcion)
+        generador = GeneradorCSV("")
+        cliente = datos_seleccionada[0]
+        estado = datos_seleccionada[2]
+        duracion = datos_seleccionada[1]
+        respuestas = datos_seleccionada[3]
+
+        preguntas = datos_encuesta[1]
+
+        generador.generarCSVdeLlamada(cliente,estado, duracion, preguntas,respuestas)

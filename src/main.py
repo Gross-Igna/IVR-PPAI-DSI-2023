@@ -3,7 +3,7 @@ from classes.PantallaConsultarEncuesta import PantallaConsultarEncuesta
 def main():
     inicio = PantallaConsultarEncuesta()
     inicio.opConsultarEncuesta()
-    inicio.mainloop()
+    #inicio.mainloop()
 
 
 if __name__ == '__main__':

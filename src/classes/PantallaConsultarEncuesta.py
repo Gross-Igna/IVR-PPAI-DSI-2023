@@ -75,17 +75,15 @@ class PantallaConsultarEncuesta(tk.Tk):
         boton_aceptar.pack()
     
     def opConsultarEncuesta(self):
-        print("Llego al consultar encuesta EN PANTALLA")
         self.habilitarPantalla()
 
     def habilitarPantalla(self):
-        print("LLego al habilitar pantalla")
+        print("Bienvenido a IVR")
         gestor = GestorConsultarEncuestas()
         gestor.consultarEncuesta(self)
         # self.mainloop()
 
     def solicitarSeleccionPeriodo(self):
-        print("llega a solicitarseleccion periodo")  # llego
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
         fecha_inicio = self.tomarFechaInicio(fecha_selector)
@@ -103,35 +101,46 @@ class PantallaConsultarEncuesta(tk.Tk):
         return fecha_fin
 
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list, gestor):
-        combobox = Combobox(self, llamadas)
-        combobox.pack()
+        for i in range(len(llamadas)):
+            print(f"{i}) Fecha de la llamada: {llamadas[i]}")
+        indice_seleccionada = self.tomarSeleccionLlamada(gestor)
 
-        llamada_seleccionada = self.tomarSeleccionLlamada(combobox, gestor)
-        # tomar seleccion llamada gestor
-        print('en mostrar ll llamada seleccionaa', llamada_seleccionada)
+        gestor.tomarSeleccionLlamada(indice_seleccionada, self)
 
-        print(llamada_seleccionada)
-        gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
+    def tomarSeleccionLlamada(self, gestor):
 
-    def tomarSeleccionLlamada(self, combobox, gestor):
-        print('llega a tomar seleccion en pantalla')
-        llamada_seleccionada = combobox.get_llamada_selec_combo()
-        #gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
-        return llamada_seleccionada
+        indice = input("Indique de la llamada a consultar o X para salir: ")
+        if indice == "X":
+            exit()
+        return int(indice)
 
-    def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta):
-        etiqueta = Etiqueta(self, datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2])  # nombre
-        etiqueta.pack()
+    def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta, gestor):
+        print()
+        print(f'Nombre del cliente: {datos_seleccionada[0]}')
+        print(f'Duracion: {datos_seleccionada[1]}')
+        print(f'Estado: {datos_seleccionada[2]}')
 
-        desc = MarcoDescripcion(self, datos_encuesta[0])
-        desc.pack()
+        print()
+        print(f'Descripcion de la encuesta: {datos_encuesta[0]}')
 
-        tabla = Tabla(self, datos_encuesta[1], datos_seleccionada[3])  # datos_encuesta[0] encuesta, [1] preguntas, datos_selec[3] respuesta
-        tabla.pack()
+        preguntas = datos_encuesta[1]
+        respuestas = datos_seleccionada[3]
+        print()
+        for i in range(len(preguntas)):
+            print(f'Pregunta: {preguntas[i]}')
+            print(f'Respuesta: {respuestas[i]}')
+            print()
 
-    #def tomarSeleccionPresentacion(self):
-    #    opcion =
-    #    gestor.tomarOpcionPresentacion(opcion)
+        self.tomarSeleccionPresentacion(gestor, datos_seleccionada, datos_encuesta)
+
+    def tomarSeleccionPresentacion(self, gestor, datos_seleccionada, datos_encuesta):
+        print("1. CSV\n"
+              "2. Imprimir")
+        seleccion = (input("Seleccione el tipo de archivo o X para salir: "))
+        if seleccion != "1":
+            exit()
+        gestor.tomarSeleccionDePresentacion(seleccion, datos_seleccionada, datos_encuesta)
+
 
 
 

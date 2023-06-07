@@ -25,15 +25,15 @@ class RespuestaDelCliente:
 
 
 rta1 = RespuestaDelCliente()
-rta1.setFechaEncuesta("6/7/203")
+rta1.setFechaEncuesta("7/6/23")
 rta1.setRespuestaSeleccionada(respuestas_posibles[2])
 
 rta2 = RespuestaDelCliente()
-rta2.setFechaEncuesta("6/7/203")
+rta2.setFechaEncuesta("7/6/23")
 rta2.setRespuestaSeleccionada(respuestas_posibles[4])
 
 rta3 = RespuestaDelCliente()
-rta3.setFechaEncuesta("6/7/203")
+rta3.setFechaEncuesta("7/6/23")
 rta3.setRespuestaSeleccionada(respuestas_posibles[6])
 
 

@@ -15,7 +15,7 @@ class GeneradorCSV:
                 'Respuesta': respuestas[i]})
     # probar con: preg_resp = [{'Pregunta': pregunta, 'Respuesta': respuesta} for pregunta, respuesta in zip(preguntas, respuestas)]
 
-        with open('llamada.csv', mode='w', newline="") as file:
+        with open('llamadas.csv', mode='w', newline="") as file:
 
             encabezado_writer = csv.writer(file, delimiter=' ', quotechar='|')
             # probar con: encabezado_writer = csv.writer(file, delimiter=',')
@@ -36,5 +36,5 @@ estado = 'Finalizada'
 duracion = 255
 x = []
 
-Gen = GeneradorCSV('07/06/2023')
-Gen.generar_csv_de_Llamada(cliente, estado, duracion, preguntas, respuestas)
+
+
