@@ -9,3 +9,7 @@ class Combobox(tk.Frame):
         self.combobox = tk.ttk.Combobox(self, values=datos)
         self.combobox.pack(pady=5)
 
+        self.llamada_seleccionada = self.combobox.get()
+
+    def get_llamada_selec_combo(self):
+        return self.llamada_seleccionada

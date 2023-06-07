@@ -74,10 +74,11 @@ class Llamada:
         self.__cliente = cliente
 
     def esDePeriodo(self, fechaInicio , fechaFin):
-        fecha_inicio = datetime.strptime(fechaInicio, "%Y-%m-%d %H:%M:%S").date()
-        fecha_fin = datetime.strptime(fechaFin, "%Y-%m-%d %H:%M:%S").date()
-        fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%Y-%m-%d %H:%M:%S").date()
+        fecha_inicio = datetime.strptime(fechaInicio, "%d/%m/%y").date()
+        fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
+        fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d/%m/%y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
+            print('es entre fechas')
             tiene_encuesta = self.tieneEncuestaRespondida()
             if tiene_encuesta:
                 return True
@@ -98,9 +99,9 @@ llamada1 = llamadas[0]
 llamada1.descripcionOperador = "Descripción del operador 1"
 llamada1.detalleAccionRequerida = "Detalle de la acción requerida 1"
 llamada1.duracion = 120
-llamada1.encuestaEnviada = True
+llamada1.setEncuestaEnviada(True)
 llamada1.observacionAuditor = "Observación del auditor 1"
-llamada1.fechaHoraInicio = "2023-06-03 10:00:00"
+llamada1.setFechaHoraInicio("6/7/23")
 llamada1.cliente = clientes[0]
 llamada1.cambios_estado = [cambios_estado[0], cambios_estado[1], cambios_estado[2]]
 llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]]
@@ -111,9 +112,9 @@ llamada2 = llamadas[1]
 llamada2.descripcionOperador = "Descripción del operador 2"
 llamada2.detalleAccionRequerida = "Detalle de la acción requerida 2"
 llamada2.duracion = 180
-llamada2.encuestaEnviada = True
+llamada2.setEncuestaEnviada(True)
 llamada2.observacionAuditor = "Observación del auditor 2"
-llamada2.fechaHoraInicio = "2023-06-03 12:00:00"
+llamada2.setFechaHoraInicio("13/08/21")
 llamada2.cliente = clientes[1]
 llamada2.cambios_estado = [cambios_estado[3], cambios_estado[4]]
 llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]]
@@ -125,6 +126,6 @@ llamada3.detalleAccionRequerida = "Detalle de la acción requerida 3"
 llamada3.duracion = 90
 llamada3.encuestaEnviada = False
 llamada3.observacionAuditor = "Observación del auditor 3"
-llamada3.fechaHoraInicio = "2023-06-03 14:00:00"
+llamada3.setFechaHoraInicio("23/09/22")
 llamada3.cliente = clientes[2]
 llamada2.cambios_estado = [cambios_estado[5], cambios_estado[6]]

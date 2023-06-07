@@ -11,21 +11,28 @@ class Button(tk.Frame):
     def __init__(self, master, placeholder):
         super().__init__(master)
 
-        self.precionado = False
-
         if placeholder == "Aceptar":
-            self.button = tk.Button(self, text="Aceptar", command=mostrar_exito, state='normal')
+            self.button = tk.Button(self, text=placeholder, command=mostrar_exito, state='normal')
             self.button.pack(pady=10)
         elif placeholder == "Buscar Llamadas":
-            self.button = tk.Button(self, text="Buscar Llamadas", command=self.cambio_de_estado, state='normal')
+            print('llego al boton')
+            self.button = tk.Button(self, text=placeholder, command=self.set_cambio_de_estado, state='normal')
             self.button.pack(pady=10)
-
         else:
+            print('salio por el else')
             self.button = tk.Button(self, text=placeholder,)
             self.button.pack(pady=5)
 
-    def cambio_de_estado(self):
+    def set_cambio_de_estado(self):
+        print('Cambio de estado')
         self.precionado = True
+
+        print(f'estado boton: {self.precionado}')
+
+    def get_cambio_de_estado(self):
+        print("devolviendo el cambio de estado")
+        return self.precionado
+
 
 #    def get_fechas(self):
 #        if self.fecha_selector:

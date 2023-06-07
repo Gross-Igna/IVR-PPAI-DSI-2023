@@ -44,23 +44,25 @@ class GestorConsultarEncuestas(tk.Tk):
     def consultarEncuesta(self, pantalla):
         print("llego al consultar encuesta dentro de gestor")
         fechas = pantalla.solicitarSeleccionPeriodo()
-        # fechas = [fecha1, fecha2]
-        # ACTIVAR BOTON PARA QUE SE OPTENGAN LAS LALAMADAS Y LUEGO SE MUESTREN
-        boton = Button(pantalla, "Buscar LLamadas")
-        boton.pack()
-        if boton.precionado:
-            print("dnetro de if en consultar encuensta")
-            self.tomarFechaInicio(fechas)
-            self.tomarFechaFin(fechas)
-            llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
+        print(f"fechas {fechas}")
 
-            pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE)
+        boton = Button(pantalla, "Buscar Llamadas")
+        boton.pack()
+        self.tomarFechaInicio(fechas)
+        self.tomarFechaFin(fechas)
+        llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
+        print(llamadas_PyE)
+        pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE)
 
     def obtenerLlamadasPeriodoConEncuesta(self):
         llamadas_p_encuestas = []
         for llamada in llamadas:
+            print('entro al for de obetener llamadas perdiod con encuetas')
             if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
-                llamadas_p_encuestas.append(llamada.getFechaHoraInicio)
+                print('lo agrega al arreglo ')
+                llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
 
         return llamadas_p_encuestas
 
+    def tomarSeleccionLlamada(self, llamada_seleccionada):
+        self.setLlamadaSeleccionada(llamada_seleccionada)

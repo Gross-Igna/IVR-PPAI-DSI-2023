@@ -11,7 +11,6 @@ from src.interface.label import Label
 from src.interface.radio_buttons import RadioButton
 from src.interface.fechas_selector import FechasSelector
 from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
-from src.classes.Llamada import llamadas
 
 
 class PantallaConsultarEncuesta(tk.Tk):
@@ -27,8 +26,8 @@ class PantallaConsultarEncuesta(tk.Tk):
         separador_inicial.pack()
         # Selecionar fechas
 
-        button_habilitar = Button(self, "Buscar Llamadas")
-        button_habilitar.pack()
+        # button_habilitar = Button(self, "Buscar Llamadas")
+        # button_habilitar.pack()
         # self.fecha_llamada_seleccionada = button_habilitar.get_fechas()
         # deberia tener este valor: [6/14/2023, 05/14/2023]
 
@@ -63,8 +62,8 @@ class PantallaConsultarEncuesta(tk.Tk):
         separador4 = Separator(self)
         separador4.pack()
 
-        label_generar = Label(self, "Generar Archivo")
-        label_generar.pack()
+        # label_generar = Label(self, "Generar Archivo")
+        # label_generar.pack()
 
         radio_buttons = RadioButton(self)
         radio_buttons.pack()
@@ -81,14 +80,12 @@ class PantallaConsultarEncuesta(tk.Tk):
 
     def habilitarPantalla(self):
         print("LLego al habilitar pantalla")
-        self.mainloop()
         gestor = GestorConsultarEncuestas()
         gestor.consultarEncuesta(self)
-        print(f"gestor: {gestor}")
-        print('NO ejecuta el gestor')
+        # self.mainloop()
 
     def solicitarSeleccionPeriodo(self):
-        print("llega a solicitarseleccion periodo")
+        print("llega a solicitarseleccion periodo")  # llego
         fecha_selector = FechasSelector(self)
         fecha_selector.pack()
         fecha_inicio = self.tomarFechaInicio(fecha_selector)
@@ -103,6 +100,16 @@ class PantallaConsultarEncuesta(tk.Tk):
         fecha_fin = fecha_selector.get_fecha_seleccionada()
         return fecha_fin[1]
 
+    def tomarSeleccionLlamada(self, combobox):
+        llamada_seleccionada = combobox.get_llamada_selec_combo()
+        # TODO TRATAR DE CONSEGUIR AL GESTOR ACA
+        # gestor.tomarSeleccionLlamada(llamada_seleccinada)
+        return llamada_seleccionada
+
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list):
         combobox = Combobox(self, llamadas)
         combobox.pack()
+
+        llamada_seleccionada = self.tomarSeleccionLlamada(combobox)
+        # tomar seleccion llamada gestor
+        print(llamada_seleccionada)
