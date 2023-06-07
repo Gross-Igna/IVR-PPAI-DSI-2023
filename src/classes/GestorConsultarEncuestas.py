@@ -1,6 +1,8 @@
 import tkinter as tk
 from ..classes.Llamada import llamadas
 from src.interface.button import Button
+from ..classes.Encuesta import encuestas
+from ..utils.generadorCSV import GeneradorCSV
 
 class GestorConsultarEncuestas(tk.Tk):
     def __init__(self):
@@ -43,7 +45,7 @@ class GestorConsultarEncuestas(tk.Tk):
 
     def consultarEncuesta(self, pantalla):
         print("llego al consultar encuesta dentro de gestor")
-        fechas = pantalla.solicitarSeleccionPeriodo()
+        fechas = pantalla.solicitarSeleccionPeriodo
         print(f"fechas {fechas}")
 
         boton = Button(pantalla, "Buscar Llamadas")
@@ -66,3 +68,20 @@ class GestorConsultarEncuestas(tk.Tk):
 
     def tomarSeleccionLlamada(self, llamada_seleccionada):
         self.setLlamadaSeleccionada(llamada_seleccionada)
+        self.mostrarLlamadaSeleccionada(llamada_seleccionada)
+
+    def mostrarLlamadaSeleccionada(self, llamada):
+        datos_seleccionada = llamada.mostrarLlamada()
+        fecha_encuesta = llamada.buscarFechaEncuesta()
+        for i in encuestas:
+            es_vigente = i.vigenteParaLaFecha(fecha_encuesta)
+            if es_vigente:
+                datos_encuesta = i.getDescripcionEncuesta()
+                # datos_encuesta = ["encuesta 1", ["¿como calificaria..."]]
+
+        pantalla.mostrarLlamadaEncuesta(datos_seleccionada,datos_encuesta)
+
+    def tomarSeleccionDePresentacion(self,opcion):
+        self.setOpcionPresentacion(opcion)
+        generador = GeneradorCSV()
+        generador.generar_csv_de_llamada()

@@ -18,6 +18,10 @@ class RespuestaDelCliente:
     def setRespuestaSeleccionada(self, respuesta):
         self.__respuestaSeleccionada = respuesta
 
+    def getDescripcionRta(self):
+        seleccionada = self.getRespuestaSeleccionada()
+        descripcion = seleccionada.getDescripcionRta()
+        return descripcion
 
 rta1 = RespuestaDelCliente()
 rta1.__fechaEncuesta = "2023-06-04 10:00:00"

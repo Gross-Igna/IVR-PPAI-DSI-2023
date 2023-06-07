@@ -3,7 +3,7 @@ class RespuestaPosible:
         self.__descripcion = ""
         self.__valor = None
 
-    def getDescripcion(self):
+    def getDescripcionRta(self):
         return self.__descripcion
 
     def setDescripcion(self, descripcion):

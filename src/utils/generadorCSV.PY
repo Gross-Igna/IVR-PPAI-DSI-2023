@@ -6,7 +6,7 @@ class GeneradorCSV:
     def __init__(self, fecha):
         self.fechaCreacion = fecha
 
-    def generar_csv_de_llamada(self, cliente, estado, duracion, preguntas, respuestas):
+    def generarCSVdeLlamada(self, cliente, estado, duracion, preguntas, respuestas):
         preg_resp = []
         encabezado = [f'Cliente: {cliente}', f'Estado: {estado}', f'Duracion: {duracion} segundos']
         for i in range(len(preguntas)):

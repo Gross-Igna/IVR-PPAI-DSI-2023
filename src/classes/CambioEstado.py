@@ -25,6 +25,11 @@ class CambioEstado:
     def setEstado(self, estado):
         self.__estado = estado
 
+    def esUltimoCambioEstado(self):
+        fechaFin = self.getFechaHoraFin()
+        if fechaFin is None:
+            return True
+
 
 cambio1 = CambioEstado()  # iniciada para llamada 1
 cambio1.fechaHoraInicio = "2023-06-01 10:00:00"

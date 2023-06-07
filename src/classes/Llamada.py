@@ -86,6 +86,31 @@ class Llamada:
     def tieneEncuestaRespondida(self):
         return self.__encuestaEnviada
 
+    def mostrarLlamada(self):
+        cliente = self.getCliente()
+        nombre_cli = cliente.getNombre()
+        duracion = self.getDuracion()
+        nombre_est = ""
+
+        cambios = self.getCambioEstado()
+        for i in cambios:
+            esUltimo = i.esUltimoCambioEstado()
+            if esUltimo:
+                estado = i.getEstado()
+                nombre_est = estado.getNombre()
+
+        respuestas = self.getRespuestasDeEncuesta()
+        descripciones = []
+        for i in respuestas:
+            desc = i.getDescripcionRta()
+            descripciones.append(desc)
+
+        return nombre_cli,duracion,nombre_est,descripciones
+
+    def buscarFechaEncuesta(self):
+        respuestas = self.getRespuestasDeEncuesta()
+        fecha = respuestas[0].getFechaEncuesta()
+        return fecha
 
 # Crear una lista de objetos de clase Llamada
 llamadas = [

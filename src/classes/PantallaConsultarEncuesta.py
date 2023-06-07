@@ -84,6 +84,7 @@ class PantallaConsultarEncuesta(tk.Tk):
         gestor.consultarEncuesta(self)
         # self.mainloop()
 
+
     def solicitarSeleccionPeriodo(self):
         print("llega a solicitarseleccion periodo")  # llego
         fecha_selector = FechasSelector(self)
@@ -100,12 +101,6 @@ class PantallaConsultarEncuesta(tk.Tk):
         fecha_fin = fecha_selector.get_fecha_seleccionada()
         return fecha_fin[1]
 
-    def tomarSeleccionLlamada(self, combobox):
-        llamada_seleccionada = combobox.get_llamada_selec_combo()
-        # TODO TRATAR DE CONSEGUIR AL GESTOR ACA
-        # gestor.tomarSeleccionLlamada(llamada_seleccinada)
-        return llamada_seleccionada
-
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list):
         combobox = Combobox(self, llamadas)
         combobox.pack()
@@ -113,3 +108,18 @@ class PantallaConsultarEncuesta(tk.Tk):
         llamada_seleccionada = self.tomarSeleccionLlamada(combobox)
         # tomar seleccion llamada gestor
         print(llamada_seleccionada)
+
+    def tomarSeleccionLlamada(self, combobox):
+        llamada_seleccionada = combobox.get_llamada_selec_combo()
+        # TODO TRATAR DE CONSEGUIR AL GESTOR ACA
+        # gestor.tomarSeleccionLlamada(llamada_seleccinada)
+        return llamada_seleccionada
+
+    def mostrarLlamadaEncuesta(self):
+
+    def tomarSeleccionPresentacion(self):
+        opcion =
+        gestor.tomarOpcionPresentacion(opcion)
+
+
+

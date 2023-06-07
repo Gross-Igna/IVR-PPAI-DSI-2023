@@ -6,7 +6,7 @@ class Pregunta:
         self.__pregunta = ""
         self.__respuestasPosibles = []
 
-    def getPregunta(self):
+    def getDescripcionPregunta(self):
         return self.__pregunta
 
     def setPregunta(self, pregunta):

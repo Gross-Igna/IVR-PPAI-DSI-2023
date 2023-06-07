@@ -8,8 +8,14 @@ class Encuesta:
         self.__fechaFinVigencia = ""
         self.__preguntas = []
 
-    def getDescripcion(self):
-        return self.__descripcion
+    def getDescripcionEncuesta(self):
+        # dudoso: 29 va dentro de 28?
+        preguntas = self.getPreguntas()
+        desc_preguntas = []
+        for i in preguntas:
+            desc_una_pregunta = i.getDescripcionPregunta()
+            desc_preguntas.append(desc_una_pregunta)
+        return self.__descripcion, desc_preguntas
 
     def setDescripcion(self, descripcion):
         self.__descripcion = descripcion
@@ -32,6 +38,11 @@ class Encuesta:
     def setPreguntas(self, preguntas):
         self.__preguntas = preguntas
 
+    def vigenteParaLaFecha(self, fecha):
+        fechaInicio = self.getFechaInicioVigencia()
+        fechaFin = self.getFechaFinVigencia()
+        if fechaInicio <= fecha <= fechaFin:
+            return True
 
 encuesta1 = Encuesta()
 encuesta1.__descripcion = "Encuesta 1"
