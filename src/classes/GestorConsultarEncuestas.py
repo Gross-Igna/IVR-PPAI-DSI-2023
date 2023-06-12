@@ -26,6 +26,7 @@ class GestorConsultarEncuestas():
     def tomarFechaInicio(self, fecha_in):
         self.__fechaInicioPeriodo = fecha_in
 
+
     def getLlamadas(self):
         return self.__llamadas
 
@@ -56,9 +57,7 @@ class GestorConsultarEncuestas():
         # print(llamadas_PyE)
         # pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
 
-    def obtenerLlamadasPeriodoConEncuesta(self):
-
-        print('se esta ejecutando')
+    def obtenerLlamadasPeriodoConEncuesta(self, pantalla):
         llamadas_p_encuestas = []
         fecha1 = self.getFechaInicioPeriodo()
         print(fecha1)
@@ -68,7 +67,8 @@ class GestorConsultarEncuestas():
                 if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
                     print('lo agrega al arreglo ')
                     llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
-
+            self.setLlamadas(llamadas_p_encuestas)
+            pantalla.mostrarLlamadasEncuestaRespondida()
 
     def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
         self.setLlamadaSeleccionada(llamada_seleccionada)

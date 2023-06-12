@@ -2,9 +2,22 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
 
+gestor = None
 # Crear la ventana principal
 window = tk.Tk()
 window.title("Consultar Encuesta")
+
+def botonHacerCosas(pantalla, gestor, entry_desde, entry_hasta):
+    fechaDesde = pantalla.tomarFechaInicio(entry_desde)
+    fechaHasta = pantalla.tomarFechaFin(entry_hasta)
+
+    gestor.tomarFechaInicio(fechaDesde)
+    gestor.tomarFechaFin(fechaHasta)
+
+    print(fechaDesde, fechaHasta)
+
+    gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
+
 
 class PantallaConsultarEncuesta():
     def __init__(self):
@@ -26,21 +39,30 @@ class PantallaConsultarEncuesta():
         label_buscar_llamadas = tk.Label(window, text="Buscar Llamadas")
         label_buscar_llamadas.pack()
 
-        # Crear el contenedor para los inputs
-        frame_inputs = tk.Frame(window)
-        frame_inputs.pack()
-
         # fecha_desde = self.tomarFechaInicio(frame_inputs)
         # fecha_hasta = self.tomarFechaFin(frame_inputs)
 
-        button_buscar = tk.Button(window, text="Buscar", command=self.tomarFechaInicio(frame_inputs,gestor))
+        frame_inputs = tk.Frame(window)
+        frame_inputs.pack()
+
+        # Crear el input de "Fecha desde"
+        label_fecha_desde = tk.Label(frame_inputs, text="Fecha desde")
+        label_fecha_desde.pack(side=tk.LEFT)
+
+        entry_fecha_desde = tk.Entry(frame_inputs)
+        entry_fecha_desde.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
+
+        label_fecha_hasta = tk.Label(frame_inputs, text="Fecha hasta")
+        label_fecha_hasta.pack(side=tk.LEFT)
+
+        entry_fecha_hasta = tk.Entry(frame_inputs)
+        entry_fecha_hasta.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
+
+        button_buscar = tk.Button(window, text="Buscar",command=lambda:botonHacerCosas(self,gestor, entry_fecha_desde, entry_fecha_hasta))
         button_buscar.pack(pady=10)
 
         linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
-
-        gestor.obtenerLlamadasPeriodoConEncuesta()
-
 
         # print("llega a solicitarseleccion periodo")  # llego
         # fecha_selector = FechasSelector(self)
@@ -49,40 +71,32 @@ class PantallaConsultarEncuesta():
         # fecha_fin = self.tomarFechaFin(fecha_selector)
         # return fecha_inicio, fecha_fin
 
-    def tomarFechaInicio(self, frame_inputs, gestor):
-        # Crear el input de "Fecha desde"
-        label_fecha_desde = tk.Label(frame_inputs, text="Fecha desde")
-        label_fecha_desde.pack(side=tk.LEFT)
+    def tomarFechaInicio(self, entry_fecha_desde):
+        print('se ejecuta el boton')
 
-        entry_fecha_desde = tk.Entry(frame_inputs)
-        entry_fecha_desde.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
         fecha = entry_fecha_desde.get()
 
-        self.tomarFechaFin(frame_inputs, fecha, gestor)
+        return fecha
 
-    def tomarFechaFin(self, frame_inputs, fecha_inicio,gestor):
+    def tomarFechaFin(self, entry_fecha_hasta):
         # Crear el input de "Fecha hasta"
-        label_fecha_hasta = tk.Label(frame_inputs, text="Fecha hasta")
-        label_fecha_hasta.pack(side=tk.LEFT)
 
-        entry_fecha_hasta = tk.Entry(frame_inputs)
-        entry_fecha_hasta.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
         fecha= entry_fecha_hasta.get()
 
-        gestor.tomarFechaInicio(fecha_inicio)
-        gestor.tomarFechaFin(fecha)
+        return fecha
 
-    def mostrarLlamadaEncuestaRespondida(self, llamadas: list, gestor):
+    def mostrarLlamadasEncuestaRespondida(self, llamadas: list, gestor):
         ##############
-        combobox = Combobox(self, llamadas)
-        combobox.pack()
+        label_titulo = tk.Label(window, text="Seleccionar llamada")
+        label_titulo.pack()
 
-        llamada_seleccionada = self.tomarSeleccionLlamada(combobox, gestor)
-        # tomar seleccion llamada gestor
-        print('en mostrar ll llamada seleccionaa', llamada_seleccionada)
+        # Crear el combobox para seleccionar la encuesta (inicialmente deshabilitado)
+        combobox_encuestas = tk.ttk.Combobox(window, state='disabled')
+        combobox_encuestas['values'] = []
+        combobox_encuestas.pack(pady=5)
 
-        print(llamada_seleccionada)
-        gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
+        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria.pack(fill="x", padx=10)
 
     def tomarSeleccionLlamada(self, combobox, gestor):
         print('llega a tomar seleccion en pantalla')
