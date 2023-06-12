@@ -1,108 +1,71 @@
 import tkinter as tk
-from src.interface.titulo import Titulo
-from src.interface.button import Button
-from src.interface.combobox import Combobox
-from src.interface.box_texto import TextoBox
-from src.interface.separator import Separator
-from src.interface.etiquetas import Etiqueta
-from src.interface.marco_descripcion import MarcoDescripcion
-from src.interface.tabla import Tabla
-from src.interface.label import Label
-from src.interface.radio_buttons import RadioButton
-from src.interface.fechas_selector import FechasSelector
+from tkinter import ttk, messagebox
 from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
 
+# Crear la ventana principal
+window = tk.Tk()
+window.title("Consultar Encuesta")
 
-class PantallaConsultarEncuesta(tk.Tk):
+class PantallaConsultarEncuesta():
     def __init__(self):
         super().__init__()
-
-        self.title("Consultar encuesta")
-
-        titulo = Titulo(self, "Seleccionar Llamada")
-        titulo.pack()
-
-        separador_inicial = Separator(self)
-        separador_inicial.pack()
-        # Selecionar fechas
-
-        # button_habilitar = Button(self, "Buscar Llamadas")
-        # button_habilitar.pack()
-        # self.fecha_llamada_seleccionada = button_habilitar.get_fechas()
-        # deberia tener este valor: [6/14/2023, 05/14/2023]
-
-        button_consultar = Button(self, "Consultar Llamada")
-        button_consultar.pack()
-
-        texto_box = TextoBox(self)
-        texto_box.pack()
-
-        #llamada_seleccionada = obtener_llamada_por_fecha(fecha_llamada_seleccionada)
-
-        lista_llamadas = ["id = 1 , Fecha de Llamada = 00/00/0000"]
-        # TODO mostrar la llamada seleccionada
-        button_mostrar_llamada = Button(self, "Mostrar Llamadas")
-        button_mostrar_llamada.pack()
-
-        separador2 = Separator(self)
-        separador2.pack()
-
-        # etiquetas = Etiqueta(self)
-        # etiquetas.pack()
-#
-        # marco_desc = MarcoDescripcion(self)
-        # marco_desc.pack()
-
-        separador3 = Separator(self)
-        separador3.pack()
-        # TODO: pasar los datos a la tabla por parametro
-        # tabla = Tabla(self)
-        # tabla.pack()
-#
-        separador4 = Separator(self)
-        separador4.pack()
-
-        # label_generar = Label(self, "Generar Archivo")
-        # label_generar.pack()
-
-        radio_buttons = RadioButton(self)
-        radio_buttons.pack()
-
-        separador5 = Separator(self)
-        separador5.pack()
-
-        boton_aceptar = Button(self, "Aceptar")
-        boton_aceptar.pack()
     
     def opConsultarEncuesta(self):
-        print("Llego al consultar encuesta EN PANTALLA")
         self.habilitarPantalla()
 
     def habilitarPantalla(self):
-        print("LLego al habilitar pantalla")
+        label_buscar_llamadas = tk.Label(window, text="Buscar Llamadas")
+        label_buscar_llamadas.pack()
+
         gestor = GestorConsultarEncuestas()
-        gestor.consultarEncuesta(self)
-        # self.mainloop()
+        gestor.consultarEncuesta(self, window)
 
-    def solicitarSeleccionPeriodo(self):
-        print("llega a solicitarseleccion periodo")  # llego
-        fecha_selector = FechasSelector(self)
-        fecha_selector.pack()
-        fecha_inicio = self.tomarFechaInicio(fecha_selector)
-        fecha_fin = self.tomarFechaFin(fecha_selector)
-        return fecha_inicio, fecha_fin
+        window.mainloop()
 
-    def tomarFechaInicio(self, fecha_selector):
-        fechas = fecha_selector.get_fecha_seleccionada()
-        fecha_inicio = fechas[0]
-        return fecha_inicio
+    def solicitarSeleccionPeriodo(self,gestor):
+        label_buscar_llamadas = tk.Label(window, text="Buscar Llamadas")
+        label_buscar_llamadas.pack()
 
-    def tomarFechaFin(self, fecha_selector):
-        fechas = fecha_selector.get_fecha_seleccionada()
-        fecha_fin = fechas[1]
-        return fecha_fin
+        # Crear el contenedor para los inputs
+        frame_inputs = tk.Frame(window)
+        frame_inputs.pack()
+
+        fecha_desde = self.tomarFechaInicio(frame_inputs)
+        fecha_hasta = self.tomarFechaFin(frame_inputs)
+
+        print(fecha_desde, fecha_hasta)
+        return fecha_desde, fecha_hasta
+
+        # print("llega a solicitarseleccion periodo")  # llego
+        # fecha_selector = FechasSelector(self)
+        # fecha_selector.pack()
+        # fecha_inicio = self.tomarFechaInicio(fecha_selector)
+        # fecha_fin = self.tomarFechaFin(fecha_selector)
+        # return fecha_inicio, fecha_fin
+
+    def tomarFechaInicio(self, frame_inputs):
+        # Crear el input de "Fecha desde"
+        label_fecha_desde = tk.Label(frame_inputs, text="Fecha desde")
+        label_fecha_desde.pack(side=tk.LEFT)
+
+        entry_fecha_desde = tk.Entry(frame_inputs)
+        entry_fecha_desde.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
+        fecha = entry_fecha_desde.get()
+        return fecha
+
+    def tomarFechaFin(self, frame_inputs):
+        # Crear el input de "Fecha hasta"
+        label_fecha_hasta = tk.Label(frame_inputs, text="Fecha hasta")
+        label_fecha_hasta.pack(side=tk.LEFT)
+
+        entry_fecha_hasta = tk.Entry(frame_inputs)
+        entry_fecha_hasta.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
+        fecha= entry_fecha_hasta.get()
+
+        return fecha
 
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list, gestor):
+        ##############
         combobox = Combobox(self, llamadas)
         combobox.pack()
 

@@ -2,6 +2,7 @@ import tkinter as tk
 from ..classes.Llamada import llamadas
 from src.interface.button import Button
 from ..classes.Encuesta import encuestas
+from tkinter import ttk, messagebox
 
 
 class GestorConsultarEncuestas(tk.Tk):
@@ -43,24 +44,41 @@ class GestorConsultarEncuestas(tk.Tk):
     def setOpcionPresentacion(self, opcion):
         self.__opcionPresentacion = opcion
 
-    def consultarEncuesta(self, pantalla):
-        print("llego al consultar encuesta dentro de gestor")
-        fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
-        boton = Button(pantalla, "Buscar Llamadas")
-        boton.pack()
+    def consultarEncuesta(self, pantalla,window):
+        fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo(self)
+
+
+
+
+        button_buscar = tk.Button(window, text="Buscar", command=self.obtenerLlamadasPeriodoConEncuesta())
+        button_buscar.pack(pady=10)
+
+        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria.pack(fill="x", padx=10)
+
         self.tomarFechaInicio(fecha_inicio)
         self.tomarFechaFin(fecha_fin)
-        llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
-        print(llamadas_PyE)
-        pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
+        print(f'fehca inicio:', fecha_inicio)
+
+        self.obtenerLlamadasPeriodoConEncuesta()
+        # fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
+        # boton = Button(pantalla, "Buscar Llamadas")
+        # boton.pack()
+        # self.tomarFechaInicio(fecha_inicio)
+        # self.tomarFechaFin(fecha_fin)
+        # llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
+        # print(llamadas_PyE)
+        # pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
 
     def obtenerLlamadasPeriodoConEncuesta(self):
         llamadas_p_encuestas = []
-        for llamada in llamadas:
-            print('entro al for de obetener llamadas perdiod con encuetas')
-            if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
-                print('lo agrega al arreglo ')
-                llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
+        fecha1 = self.getFechaInicioPeriodo()
+        if fecha1 != '':
+            for llamada in llamadas:
+                print('entro al for de obetener llamadas perdiod con encuetas')
+                if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
+                    print('lo agrega al arreglo ')
+                    llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
 
         return llamadas_p_encuestas
 
