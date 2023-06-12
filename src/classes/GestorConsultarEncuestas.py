@@ -5,11 +5,11 @@ from ..classes.Encuesta import encuestas
 from tkinter import ttk, messagebox
 
 
-class GestorConsultarEncuestas(tk.Tk):
+class GestorConsultarEncuestas():
     def __init__(self):
         super().__init__()
-        self.__fechaFinPeriodo = None
-        self.__fechaInicioPeriodo = None
+        self.__fechaFinPeriodo = ''
+        self.__fechaInicioPeriodo = ''
         self.__llamadas = None
         self.__llamadaSeleccionada = None
         self.__opcionPresentacion = None
@@ -45,22 +45,8 @@ class GestorConsultarEncuestas(tk.Tk):
         self.__opcionPresentacion = opcion
 
     def consultarEncuesta(self, pantalla,window):
-        fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo(self)
+        pantalla.solicitarSeleccionPeriodo(self)
 
-
-
-
-        button_buscar = tk.Button(window, text="Buscar", command=self.obtenerLlamadasPeriodoConEncuesta())
-        button_buscar.pack(pady=10)
-
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
-        linea_divisoria.pack(fill="x", padx=10)
-
-        self.tomarFechaInicio(fecha_inicio)
-        self.tomarFechaFin(fecha_fin)
-        print(f'fehca inicio:', fecha_inicio)
-
-        self.obtenerLlamadasPeriodoConEncuesta()
         # fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
         # boton = Button(pantalla, "Buscar Llamadas")
         # boton.pack()
@@ -71,8 +57,11 @@ class GestorConsultarEncuestas(tk.Tk):
         # pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
 
     def obtenerLlamadasPeriodoConEncuesta(self):
+
+        print('se esta ejecutando')
         llamadas_p_encuestas = []
         fecha1 = self.getFechaInicioPeriodo()
+        print(fecha1)
         if fecha1 != '':
             for llamada in llamadas:
                 print('entro al for de obetener llamadas perdiod con encuetas')
@@ -80,7 +69,6 @@ class GestorConsultarEncuestas(tk.Tk):
                     print('lo agrega al arreglo ')
                     llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
 
-        return llamadas_p_encuestas
 
     def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
         self.setLlamadaSeleccionada(llamada_seleccionada)

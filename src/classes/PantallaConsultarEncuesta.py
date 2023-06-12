@@ -30,11 +30,17 @@ class PantallaConsultarEncuesta():
         frame_inputs = tk.Frame(window)
         frame_inputs.pack()
 
-        fecha_desde = self.tomarFechaInicio(frame_inputs)
-        fecha_hasta = self.tomarFechaFin(frame_inputs)
+        # fecha_desde = self.tomarFechaInicio(frame_inputs)
+        # fecha_hasta = self.tomarFechaFin(frame_inputs)
 
-        print(fecha_desde, fecha_hasta)
-        return fecha_desde, fecha_hasta
+        button_buscar = tk.Button(window, text="Buscar", command=self.tomarFechaInicio(frame_inputs,gestor))
+        button_buscar.pack(pady=10)
+
+        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria.pack(fill="x", padx=10)
+
+        gestor.obtenerLlamadasPeriodoConEncuesta()
+
 
         # print("llega a solicitarseleccion periodo")  # llego
         # fecha_selector = FechasSelector(self)
@@ -43,7 +49,7 @@ class PantallaConsultarEncuesta():
         # fecha_fin = self.tomarFechaFin(fecha_selector)
         # return fecha_inicio, fecha_fin
 
-    def tomarFechaInicio(self, frame_inputs):
+    def tomarFechaInicio(self, frame_inputs, gestor):
         # Crear el input de "Fecha desde"
         label_fecha_desde = tk.Label(frame_inputs, text="Fecha desde")
         label_fecha_desde.pack(side=tk.LEFT)
@@ -51,9 +57,10 @@ class PantallaConsultarEncuesta():
         entry_fecha_desde = tk.Entry(frame_inputs)
         entry_fecha_desde.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
         fecha = entry_fecha_desde.get()
-        return fecha
 
-    def tomarFechaFin(self, frame_inputs):
+        self.tomarFechaFin(frame_inputs, fecha, gestor)
+
+    def tomarFechaFin(self, frame_inputs, fecha_inicio,gestor):
         # Crear el input de "Fecha hasta"
         label_fecha_hasta = tk.Label(frame_inputs, text="Fecha hasta")
         label_fecha_hasta.pack(side=tk.LEFT)
@@ -62,7 +69,8 @@ class PantallaConsultarEncuesta():
         entry_fecha_hasta.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
         fecha= entry_fecha_hasta.get()
 
-        return fecha
+        gestor.tomarFechaInicio(fecha_inicio)
+        gestor.tomarFechaFin(fecha)
 
     def mostrarLlamadaEncuestaRespondida(self, llamadas: list, gestor):
         ##############
