@@ -11,7 +11,6 @@ class Encuesta:
         self.__preguntas = []
 
     def getDescripcionEncuesta(self):
-        # dudoso: 29 va dentro de 28?
         preguntas = self.getPreguntas()
         desc_preguntas = []
         for pregunta in preguntas:  # array de objetos pregunta

@@ -123,7 +123,7 @@ llamadas = [
 llamada1 = llamadas[0]
 llamada1.descripcionOperador = "Descripción del operador 1"
 llamada1.detalleAccionRequerida = "Detalle de la acción requerida 1"
-llamada1.duracion = 120
+llamada1.setDuracion(120)
 llamada1.setEncuestaEnviada(True)
 llamada1.observacionAuditor = "Observación del auditor 1"
 llamada1.setFechaHoraInicio("6/7/23")
@@ -139,7 +139,7 @@ llamada2.detalleAccionRequerida = "Detalle de la acción requerida 2"
 llamada2.duracion = 180
 llamada2.setEncuestaEnviada(True)
 llamada2.observacionAuditor = "Observación del auditor 2"
-llamada2.setFechaHoraInicio("13/08/21")
+llamada2.setFechaHoraInicio("8/7/23")
 llamada2.cliente = clientes[1]
 llamada2.cambios_estado = [cambios_estado[3], cambios_estado[4]]
 llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]]

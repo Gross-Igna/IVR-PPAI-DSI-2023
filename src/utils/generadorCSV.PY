@@ -1,10 +1,8 @@
 import csv
 
-
-# TODO: revisar implementacion en radio buttons
 class GeneradorCSV:
-    def __init__(self, fecha):
-        self.fechaCreacion = fecha
+    def __init__(self):
+        super().__init__()
 
     def generarCSVdeLlamada(self, cliente, estado, duracion, preguntas, respuestas):
         preg_resp = []
@@ -13,7 +11,6 @@ class GeneradorCSV:
             preg_resp.append({
                 'Pregunta': preguntas[i],
                 'Respuesta': respuestas[i]})
-    # probar con: preg_resp = [{'Pregunta': pregunta, 'Respuesta': respuesta} for pregunta, respuesta in zip(preguntas, respuestas)]
 
         with open('llamada.csv', mode='w', newline="") as file:
 
@@ -28,13 +25,3 @@ class GeneradorCSV:
                 writer.writerow(i)
 
 
-preguntas = ['¿Que tan satisfecho esta con el servicio brindado?', '¿Que tan probable es que recomiende nuestros '
-                                                                   'servicios?']
-respuestas = ['Muy satisfecho', 'Algo probable']
-cliente = 'Juan Perez'
-estado = 'Finalizada'
-duracion = 255
-x = []
-
-Gen = GeneradorCSV('07/06/2023')
-Gen.generar_csv_de_Llamada(cliente, estado, duracion, preguntas, respuestas)

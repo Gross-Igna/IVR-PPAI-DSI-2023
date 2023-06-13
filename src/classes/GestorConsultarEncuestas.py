@@ -1,6 +1,6 @@
 from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
-
+from ..utils.generadorCSV import GeneradorCSV
 
 class GestorConsultarEncuestas:
     def __init__(self):
@@ -65,20 +65,21 @@ class GestorConsultarEncuestas:
             fecha_iteradora = llamadas[i].getFechaHoraInicio()
             if fecha_iteradora == llamada_fecha:
                 indice = i
+                break
         LA_llamada = llamadas[indice]
         datos_seleccionada = LA_llamada.mostrarLlamada()
-        #  return [nombre_cli, duracion, nombre_est, descripciones[]]
+        #  return [nombre_cli, duracion, nombre_est, respuestas[]]
         datos_encuesta = []
         fecha_encuesta = LA_llamada.buscarFechaEncuesta()
         for encuesta in encuestas:
             es_vigente = encuesta.vigenteParaLaFecha(fecha_encuesta)
             if es_vigente:
                 datos_encuesta = encuesta.getDescripcionEncuesta()
+        print('datos de la llamada y la encuesta', datos_seleccionada, datos_encuesta)
         if len(datos_encuesta):
-            pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta)
+            pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta, self)
 
 
-    #def tomarSeleccionDePresentacion(self,opcion):
-    #    self.setOpcionPresentacion(opcion)
-    #    generador = GeneradorCSV()
-    #    generador.generar_csv_de_llamada()
+    def tomarOpcionDePresentacion(self, datos_seleccionada, datos_encuesta):
+        generador = GeneradorCSV()
+        generador.generarCSVdeLlamada(datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2], datos_encuesta[1], datos_seleccionada[3])
