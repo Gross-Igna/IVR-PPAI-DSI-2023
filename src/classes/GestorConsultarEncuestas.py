@@ -1,11 +1,8 @@
-import tkinter as tk
 from ..classes.Llamada import llamadas
-from src.interface.button import Button
 from ..classes.Encuesta import encuestas
-from tkinter import ttk, messagebox
 
 
-class GestorConsultarEncuestas():
+class GestorConsultarEncuestas:
     def __init__(self):
         super().__init__()
         self.__fechaFinPeriodo = ''
@@ -25,7 +22,6 @@ class GestorConsultarEncuestas():
 
     def tomarFechaInicio(self, fecha_in):
         self.__fechaInicioPeriodo = fecha_in
-
 
     def getLlamadas(self):
         return self.__llamadas
@@ -48,42 +44,27 @@ class GestorConsultarEncuestas():
     def consultarEncuesta(self, pantalla,window):
         pantalla.solicitarSeleccionPeriodo(self)
 
-        # fecha_inicio, fecha_fin = pantalla.solicitarSeleccionPeriodo()
-        # boton = Button(pantalla, "Buscar Llamadas")
-        # boton.pack()
-        # self.tomarFechaInicio(fecha_inicio)
-        # self.tomarFechaFin(fecha_fin)
-        # llamadas_PyE = self.obtenerLlamadasPeriodoConEncuesta()
-        # print(llamadas_PyE)
-        # pantalla.mostrarLlamadaEncuestaRespondida(llamadas_PyE, self)
-
     def obtenerLlamadasPeriodoConEncuesta(self, pantalla):
         llamadas_p_encuestas = []
         fecha1 = self.getFechaInicioPeriodo()
         print(fecha1)
         if fecha1 != '':
             for llamada in llamadas:
-                print('entro al for de obetener llamadas perdiod con encuetas')
                 if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
-                    print('lo agrega al arreglo ')
                     llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
             self.setLlamadas(llamadas_p_encuestas)
-            pantalla.mostrarLlamadasEncuestaRespondida()
+            pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
 
     def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
         self.setLlamadaSeleccionada(llamada_seleccionada)
-        print("tomarSelec", llamada_seleccionada)
         self.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
-        # buscar la llamad
-        print("fecha seleccionada", llamada_fecha)
+        indice = 0
         for i in range(len(llamadas)):
             fecha_iteradora = llamadas[i].getFechaHoraInicio()
             if fecha_iteradora == llamada_fecha:
                 indice = i
-        # BORRAR SI O SI
-        indice = 0
         LA_llamada = llamadas[indice]
         datos_seleccionada = LA_llamada.mostrarLlamada()
         #  return [nombre_cli, duracion, nombre_est, descripciones[]]
@@ -93,11 +74,8 @@ class GestorConsultarEncuestas():
             es_vigente = encuesta.vigenteParaLaFecha(fecha_encuesta)
             if es_vigente:
                 datos_encuesta = encuesta.getDescripcionEncuesta()
-                # datos_encuesta = ["encuesta 1", ["¿como calificaria..."]]
         if len(datos_encuesta):
             pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta)
-        else:
-            print('sorry bro')
 
 
     #def tomarSeleccionDePresentacion(self,opcion):

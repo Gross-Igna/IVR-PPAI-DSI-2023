@@ -20,8 +20,8 @@ class Pregunta:
 
 
 pregunta1 = Pregunta()
-pregunta1.__pregunta = "Cuál es su nivel de satisfacción con nuestro servicio?"
-pregunta1.__respuestasPosibles = [respuestas_posibles[0], respuestas_posibles[1], respuestas_posibles[2]]
+pregunta1.setPregunta("Cuál es su nivel de satisfacción con nuestro servicio?")
+pregunta1.setRespuestasPosibles(  [respuestas_posibles[0], respuestas_posibles[1], respuestas_posibles[2]])
 
 pregunta2 = Pregunta()
 pregunta2.__pregunta = "¿Recomendaría nuestros servicios a otras personas?"

@@ -7,6 +7,7 @@ gestor = None
 window = tk.Tk()
 window.title("Consultar Encuesta")
 
+
 def botonHacerCosas(pantalla, gestor, entry_desde, entry_hasta):
     fechaDesde = pantalla.tomarFechaInicio(entry_desde)
     fechaHasta = pantalla.tomarFechaFin(entry_hasta)
@@ -14,12 +15,18 @@ def botonHacerCosas(pantalla, gestor, entry_desde, entry_hasta):
     gestor.tomarFechaInicio(fechaDesde)
     gestor.tomarFechaFin(fechaHasta)
 
-    print(fechaDesde, fechaHasta)
-
+    print(f"fecha desde: {fechaDesde}, fecha hasta: {fechaHasta}")
     gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
 
 
-class PantallaConsultarEncuesta():
+def botonSeleccionarLlamada(pantalla, gestor, dropdow):
+    llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)
+    print(llamada_seleccionada)
+    gestor.setLlamadaSeleccionada(llamada_seleccionada)
+    gestor.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
+
+
+class PantallaConsultarEncuesta:
     def __init__(self):
         super().__init__()
     
@@ -36,12 +43,6 @@ class PantallaConsultarEncuesta():
         window.mainloop()
 
     def solicitarSeleccionPeriodo(self,gestor):
-        label_buscar_llamadas = tk.Label(window, text="Buscar Llamadas")
-        label_buscar_llamadas.pack()
-
-        # fecha_desde = self.tomarFechaInicio(frame_inputs)
-        # fecha_hasta = self.tomarFechaFin(frame_inputs)
-
         frame_inputs = tk.Frame(window)
         frame_inputs.pack()
 
@@ -58,50 +59,43 @@ class PantallaConsultarEncuesta():
         entry_fecha_hasta = tk.Entry(frame_inputs)
         entry_fecha_hasta.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.BOTH, expand=True)
 
-        button_buscar = tk.Button(window, text="Buscar",command=lambda:botonHacerCosas(self,gestor, entry_fecha_desde, entry_fecha_hasta))
+        button_buscar = tk.Button(window, text="Buscar",command=lambda: botonHacerCosas(self, gestor, entry_fecha_desde, entry_fecha_hasta))
         button_buscar.pack(pady=10)
 
         linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
 
-        # print("llega a solicitarseleccion periodo")  # llego
-        # fecha_selector = FechasSelector(self)
-        # fecha_selector.pack()
-        # fecha_inicio = self.tomarFechaInicio(fecha_selector)
-        # fecha_fin = self.tomarFechaFin(fecha_selector)
-        # return fecha_inicio, fecha_fin
-
     def tomarFechaInicio(self, entry_fecha_desde):
-        print('se ejecuta el boton')
-
         fecha = entry_fecha_desde.get()
-
         return fecha
 
     def tomarFechaFin(self, entry_fecha_hasta):
         # Crear el input de "Fecha hasta"
 
-        fecha= entry_fecha_hasta.get()
+        fecha = entry_fecha_hasta.get()
 
         return fecha
 
     def mostrarLlamadasEncuestaRespondida(self, llamadas: list, gestor):
-        ##############
         label_titulo = tk.Label(window, text="Seleccionar llamada")
         label_titulo.pack()
-
+        if len(llamadas) > 0:
+            state = 'normal'
+        else:
+            state = 'disabled'
         # Crear el combobox para seleccionar la encuesta (inicialmente deshabilitado)
-        combobox_encuestas = tk.ttk.Combobox(window, state='disabled')
-        combobox_encuestas['values'] = []
+        combobox_encuestas = tk.ttk.Combobox(window, state=state, values=llamadas)
         combobox_encuestas.pack(pady=5)
+
+        button_buscar = tk.Button(window, text="Seleccionar",
+                                  command=lambda: botonSeleccionarLlamada(self, gestor, combobox_encuestas))
+        button_buscar.pack(pady=10)
 
         linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
 
-    def tomarSeleccionLlamada(self, combobox, gestor):
-        print('llega a tomar seleccion en pantalla')
-        llamada_seleccionada = combobox.get_llamada_selec_combo()
-        #gestor.tomarSeleccionLlamada(llamada_seleccionada, self)
+    def tomarSeleccionLlamada(self, dropdown):
+        llamada_seleccionada = dropdown.get()
         return llamada_seleccionada
 
     def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta):
