@@ -1,11 +1,10 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from .db import Llamada, Cliente, CambioEstado, RespuestaDeCliente, RespuestaPosible, Encuesta, Estado, Pregunta
+from .db import Llamada, Cliente, CambioEstado, RespuestaDeCliente, RespuestaPosible, Encuesta, Estado, Pregunta, Base
 
-engine = create_engine('sqlite:///bdIvr.db')
+engine = create_engine('sqlite:///database/bdIvr.db')
 
 # TODO: deberiamos tener estas funciones en la declaracion de cada clase ?
-
 
 def get_llamadas_db():
     Session = sessionmaker(bind=engine)

@@ -1,16 +1,20 @@
-from ..classes.Llamada import llamadas
+##from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
+
+## Interface Base de datos
+from src.database.db_utils import get_llamadas_db
 
 class GestorConsultarEncuestas:
     def __init__(self):
         super().__init__()
         self.__fechaFinPeriodo = ''
         self.__fechaInicioPeriodo = ''
-        self.__llamadas = None
+        self.__llamadas = get_llamadas_db() ##Obtener llamadas de la base de datos
         self.__llamadaSeleccionada = None
         self.__opcionPresentacion = None
 
+        print(self.getLlamadas()[0].fechaHoraInicio)
     def getFechaFinPeriodo(self):
         return self.__fechaFinPeriodo
 
@@ -47,6 +51,7 @@ class GestorConsultarEncuestas:
     def obtenerLlamadasPeriodoConEncuesta(self, pantalla):
         llamadas_p_encuestas = []
         fecha1 = self.getFechaInicioPeriodo()
+        llamadas = self.getLlamadas()
         if fecha1 != '':
             for llamada in llamadas:
                 if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
@@ -55,9 +60,10 @@ class GestorConsultarEncuestas:
             pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
+        llamadas = self.getLlamadas()
         indice = 0
         for i in range(len(llamadas)):
-            fecha_iteradora = llamadas[i].getFechaHoraInicio()
+            fecha_iteradora = llamadas[i].fechaHoraInicio ##TODO: Revisar, se cambió getFechaHoraInicio() por fechaHoraInicio
             if fecha_iteradora == llamada_fecha:
                 indice = i
                 break
