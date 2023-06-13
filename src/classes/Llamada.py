@@ -78,7 +78,6 @@ class Llamada:
         fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
         fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d/%m/%y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
-            print('es entre fechas')
             tiene_encuesta = self.tieneEncuestaRespondida()
             if tiene_encuesta:
                 return True
@@ -134,23 +133,24 @@ llamada1.setRespuestasDeEncuesta([respuestasSeleccionadas[0], respuestasSeleccio
 
 # Acceder a los atributos de otro objeto de la lista
 llamada2 = llamadas[1]
-llamada2.descripcionOperador = "Descripción del operador 2"
-llamada2.detalleAccionRequerida = "Detalle de la acción requerida 2"
-llamada2.duracion = 180
+llamada2.setDescripcionOperador("Descripción del operador 2")
+llamada2.setDetalleAccionRequerida("Detalle de la acción requerida 2")
+llamada2.setDuracion(180)
 llamada2.setEncuestaEnviada(True)
-llamada2.observacionAuditor = "Observación del auditor 2"
+llamada2.setObservacionAuditor("Observación del auditor 2")
 llamada2.setFechaHoraInicio("8/7/23")
-llamada2.cliente = clientes[1]
-llamada2.cambios_estado = [cambios_estado[3], cambios_estado[4]]
-llamada1.respuestasDeEncuesta = [respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]]
+llamada2.setCliente(clientes[1])
+llamada2.setCambioEstado([cambios_estado[3], cambios_estado[4]])
+llamada2.setRespuestasDeEncuesta([respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]])
 
 # Acceder a los atributos de otro objeto de la lista
 llamada3 = llamadas[2]
 llamada3.descripcionOperador = "Descripción del operador 3"
 llamada3.detalleAccionRequerida = "Detalle de la acción requerida 3"
-llamada3.duracion = 90
-llamada3.encuestaEnviada = False
+llamada3.setDuracion(90)
+llamada3.setEncuestaEnviada(True)
 llamada3.observacionAuditor = "Observación del auditor 3"
-llamada3.setFechaHoraInicio("23/09/22")
-llamada3.cliente = clientes[2]
-llamada2.cambios_estado = [cambios_estado[5], cambios_estado[6]]
+llamada3.setFechaHoraInicio("9/7/23")
+llamada3.setCliente(clientes[2])
+llamada3.setCambioEstado([cambios_estado[5], cambios_estado[6]])
+llamada3.setRespuestasDeEncuesta([respuestasSeleccionadas[6], respuestasSeleccionadas[7], respuestasSeleccionadas[8]])

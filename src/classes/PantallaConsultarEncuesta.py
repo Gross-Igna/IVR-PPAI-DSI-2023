@@ -15,17 +15,14 @@ def botonBuscar(pantalla, gestor, entry_desde, entry_hasta):
     gestor.tomarFechaInicio(fechaDesde)
     gestor.tomarFechaFin(fechaHasta)
 
-    #print(f"fecha desde: {fechaDesde}, fecha hasta: {fechaHasta}")
     gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
 
 
 def botonSeleccionarLlamada(pantalla, gestor, dropdow):
     llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)
-    print(llamada_seleccionada)
-    gestor.setLlamadaSeleccionada(llamada_seleccionada)
+    gestor.tomarSeleccionLlamada(llamada_seleccionada)
     gestor.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
 
-    #pantalla.mostrarLlamadaEncuesta()
 
 def mostrar_exito(pantalla, gestor, datos_seleccionada, datos_encuesta):
     messagebox.showinfo("Éxito", "Se ha generado con éxito!")
@@ -68,6 +65,9 @@ class PantallaConsultarEncuesta:
         button_buscar = tk.Button(window, text="Buscar", command=lambda: botonBuscar(self, gestor, entry_fecha_desde, entry_fecha_hasta))
         button_buscar.pack(pady=10)
 
+        button_cancelar = tk.Button(window, text="Cancelar",bg ="salmon", command=exit)
+        button_cancelar.pack(pady=10, side="bottom")
+
         linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
 
@@ -83,12 +83,16 @@ class PantallaConsultarEncuesta:
         return fecha
 
     def mostrarLlamadasEncuestaRespondida(self, llamadas: list, gestor):
+        self.solicitarSeleccionLlamada(llamadas, gestor)
+
+    def solicitarSeleccionLlamada(self, llamadas, gestor):
         label_titulo = tk.Label(window, text="Seleccionar llamada")
         label_titulo.pack()
         if len(llamadas) > 0:
             state = 'normal'
         else:
             state = 'disabled'
+
         # Crear el combobox para seleccionar la encuesta (inicialmente deshabilitado)
         combobox_encuestas = tk.ttk.Combobox(window, state=state, values=llamadas)
         combobox_encuestas.pack(pady=5)
@@ -161,16 +165,6 @@ class PantallaConsultarEncuesta:
             tabla.insert("", tk.END, text=preguntas[i], values=(respuestas[i]))
 
         self.solicitarSeleccionPresentacion(datos_seleccionada, datos_encuesta,gestor)
-
-
-        # etiqueta = Etiqueta(self, datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2])  # nombre
-        # etiqueta.pack()
-        #
-        # desc = MarcoDescripcion(self, datos_encuesta[0])
-        # desc.pack()
-        #
-        # tabla = Tabla(self, datos_encuesta[1], datos_seleccionada[3])  # datos_encuesta[0] encuesta, [1] preguntas, datos_selec[3] respuesta
-        # tabla.pack()
 
     def solicitarSeleccionPresentacion(self, datos_seleccionada, datos_encuesta, gestor):
         frame_opciones = tk.Frame(window)

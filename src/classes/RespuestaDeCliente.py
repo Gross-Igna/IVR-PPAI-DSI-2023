@@ -38,15 +38,29 @@ rta3.setRespuestaSeleccionada(respuestas_posibles[6])
 
 
 rta4 = RespuestaDelCliente()
-rta4.__fechaEncuesta = "2023-06-05 12:00:00"
-rta4.__respuestaSeleccionada = respuestas_posibles[0]
+rta4.setFechaEncuesta("8/7/23")
+rta4.setRespuestaSeleccionada(respuestas_posibles[0])
 
 rta5 = RespuestaDelCliente()
-rta5.__fechaEncuesta = "2023-06-05 12:00:00"
-rta5.__respuestaSeleccionada = respuestas_posibles[3]
+rta5.setFechaEncuesta("8/7/23")
+rta5.setRespuestaSeleccionada(respuestas_posibles[3])
 
 rta6 = RespuestaDelCliente()
-rta6.__fechaEncuesta = "2023-06-05 12:00:00"
-rta6.__respuestaSeleccionada = respuestas_posibles[5]
+rta6.setFechaEncuesta("8/7/23")
+rta6.setRespuestaSeleccionada(respuestas_posibles[5])
 
-respuestasSeleccionadas = [rta1, rta2, rta3, rta4, rta5, rta6]
+
+
+rta7 = RespuestaDelCliente()
+rta7.setFechaEncuesta("9/7/23")
+rta7.setRespuestaSeleccionada(respuestas_posibles[0])
+
+rta8 = RespuestaDelCliente()
+rta8.setFechaEncuesta("9/7/23")
+rta8.setRespuestaSeleccionada(respuestas_posibles[3])
+
+rta9 = RespuestaDelCliente()
+rta9.setFechaEncuesta("9/7/23")
+rta9.setRespuestaSeleccionada(respuestas_posibles[5])
+
+respuestasSeleccionadas = [rta1, rta2, rta3, rta4, rta5, rta6, rta7, rta8, rta9]

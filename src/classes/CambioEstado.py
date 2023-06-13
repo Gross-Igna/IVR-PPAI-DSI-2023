@@ -48,20 +48,20 @@ cambio3.setEstado(estados[2])
 cambio4 = CambioEstado()  # iniciada para llamada 2
 cambio4.fechaHoraInicio = "2023-06-01 12:00:00"
 cambio4.fechaHoraFin = "2023-06-01 12:02:00"
-cambio4.estado = estados[1]
+cambio4.setEstado(estados[1])
 
 cambio5 = CambioEstado()  # finalizada para llamada 2
 cambio5.fechaHoraInicio = "2023-06-01 12:02:00"
-cambio5.estado = estados[2]
+cambio5.setEstado(estados[2])
 
 cambio6 = CambioEstado()  # iniciada para llamada 3
 cambio6.fechaHoraInicio = "2023-06-01 14:00:00"
 cambio6.fechaHoraFin = "2023-06-01 14:02:00"
-cambio6.estado = estados[1]
+cambio6.setEstado(estados[1])
 
 cambio7 = CambioEstado()  # finalizada para llamada 3
 cambio7.fechaHoraInicio = "2023-06-01 14:02:00"
-cambio7.estado = estados[2]
+cambio7.setEstado(estados[2])
 
 
 cambios_estado = [cambio1, cambio2, cambio3, cambio4, cambio5, cambio6, cambio7]

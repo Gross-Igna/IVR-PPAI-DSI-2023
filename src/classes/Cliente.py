@@ -28,10 +28,12 @@ cliente1 = Cliente()
 cliente1.setDni("12345678")
 cliente1.setNombre("Juan Perez")
 cliente1.setNroCelular("987654321")
+
 cliente2 = Cliente()
 cliente2.setDni("10312345678")
 cliente2.setNombre("Juana Pereza")
 cliente2.setNroCelular("107654321")
+
 cliente3 = Cliente()
 cliente3.setDni("9912345678")
 cliente3.setNombre("Juancito Perez miguel")

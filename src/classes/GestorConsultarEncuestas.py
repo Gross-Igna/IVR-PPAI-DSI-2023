@@ -32,7 +32,7 @@ class GestorConsultarEncuestas:
     def getLlamadaSeleccionada(self):
         return self.__llamadaSeleccionada
 
-    def setLlamadaSeleccionada(self, llamada):
+    def tomarSeleccionLlamada(self, llamada):
         self.__llamadaSeleccionada = llamada
 
     def getOpcionPresentacion(self):
@@ -47,17 +47,12 @@ class GestorConsultarEncuestas:
     def obtenerLlamadasPeriodoConEncuesta(self, pantalla):
         llamadas_p_encuestas = []
         fecha1 = self.getFechaInicioPeriodo()
-        print(fecha1)
         if fecha1 != '':
             for llamada in llamadas:
                 if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
                     llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
             self.setLlamadas(llamadas_p_encuestas)
             pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
-
-    def tomarSeleccionLlamada(self, llamada_seleccionada, pantalla):
-        self.setLlamadaSeleccionada(llamada_seleccionada)
-        self.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0
@@ -75,7 +70,6 @@ class GestorConsultarEncuestas:
             es_vigente = encuesta.vigenteParaLaFecha(fecha_encuesta)
             if es_vigente:
                 datos_encuesta = encuesta.getDescripcionEncuesta()
-        print('datos de la llamada y la encuesta', datos_seleccionada, datos_encuesta)
         if len(datos_encuesta):
             pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta, self)
 
@@ -83,3 +77,8 @@ class GestorConsultarEncuestas:
     def tomarOpcionDePresentacion(self, datos_seleccionada, datos_encuesta):
         generador = GeneradorCSV()
         generador.generarCSVdeLlamada(datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2], datos_encuesta[1], datos_seleccionada[3])
+
+        self.finDelCU()
+
+    def finDelCU(self):
+        exit()

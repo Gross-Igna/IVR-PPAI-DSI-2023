@@ -47,7 +47,6 @@ class Encuesta:
         fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
         fecha_encuesta = datetime.strptime(fecha, "%d/%m/%y").date()
 
-        print(f"fechainicio: {fechaInicio} - fecha: {fecha} - fechafin: {fechaFin}")
         if fecha_inicio == '' or fecha_encuesta == '' or fecha_fin == '':
             pass
         elif fecha_inicio <= fecha_encuesta <= fecha_fin:
@@ -64,9 +63,8 @@ encuesta1.setPreguntas([preguntas[1], preguntas[2], preguntas[3]])
 
 encuesta2 = Encuesta()
 encuesta2.setDescripcion('Encuesta 2')
-encuesta2.setFechaInicioVigencia("23/10/23")
+encuesta2.setFechaInicioVigencia("12/7/23")
 encuesta2.setFechaFinVigencia("17/7/23")
-
 encuesta1.setPreguntas([preguntas[0], preguntas[1], preguntas[2]])
 
 encuestas = [encuesta1, encuesta2]
