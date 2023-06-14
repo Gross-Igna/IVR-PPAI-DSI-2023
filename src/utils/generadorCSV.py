@@ -1,5 +1,6 @@
 import csv
 
+
 class GeneradorCSV:
     def __init__(self):
         super().__init__()

@@ -65,7 +65,7 @@ class PantallaConsultarEncuesta:
         button_buscar = tk.Button(window, text="Buscar", command=lambda: botonBuscar(self, gestor, entry_fecha_desde, entry_fecha_hasta))
         button_buscar.pack(pady=10)
 
-        button_cancelar = tk.Button(window, text="Cancelar",bg ="salmon", command=exit)
+        button_cancelar = tk.Button(window, text="Cancelar", bg="salmon", command=exit)
         button_cancelar.pack(pady=10, side="bottom")
 
         linea_divisoria = ttk.Separator(window, orient="horizontal")
@@ -188,9 +188,7 @@ class PantallaConsultarEncuesta:
         boton_aceptar = tk.Button(window, text="Aceptar", command=lambda :mostrar_exito(self, gestor, datos_seleccionada, datos_encuesta), state='normal')
         boton_aceptar.pack(pady=10)
 
-
     def tomarOpcionPresentacion(self, gestor, datos_seleccionada, datos_encuesta):
         gestor.tomarOpcionDePresentacion(datos_seleccionada, datos_encuesta)
-
 
 

@@ -1,6 +1,13 @@
+from tkinter import messagebox
 from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
+
+
+def no_hay_llamadas():
+    messagebox.showinfo("No hay llamadas", "No se encontraron llamadas en este periodo.")
+    # exit()
+
 
 class GestorConsultarEncuestas:
     def __init__(self):
@@ -51,8 +58,11 @@ class GestorConsultarEncuestas:
             for llamada in llamadas:
                 if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
                     llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
-            self.setLlamadas(llamadas_p_encuestas)
-            pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
+            if len(llamadas_p_encuestas) > 0:
+                self.setLlamadas(llamadas_p_encuestas)
+                pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
+            else:
+                no_hay_llamadas()
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0
@@ -72,7 +82,6 @@ class GestorConsultarEncuestas:
                 datos_encuesta = encuesta.getDescripcionEncuesta()
         if len(datos_encuesta):
             pantalla.mostrarLlamadaEncuesta(datos_seleccionada, datos_encuesta, self)
-
 
     def tomarOpcionDePresentacion(self, datos_seleccionada, datos_encuesta):
         generador = GeneradorCSV()
