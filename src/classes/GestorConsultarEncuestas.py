@@ -4,11 +4,6 @@ from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
 
 
-def no_hay_llamadas():
-    messagebox.showinfo("No hay llamadas", "No se encontraron llamadas en este periodo.")
-    # exit()
-
-
 class GestorConsultarEncuestas:
     def __init__(self):
         super().__init__()
@@ -62,7 +57,7 @@ class GestorConsultarEncuestas:
                 self.setLlamadas(llamadas_p_encuestas)
                 pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
             else:
-                no_hay_llamadas()
+                pantalla.no_hay_llamadas()
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0
@@ -85,7 +80,7 @@ class GestorConsultarEncuestas:
 
     def tomarOpcionDePresentacion(self, datos_seleccionada, datos_encuesta):
         generador = GeneradorCSV()
-        generador.generarCSVdeLlamada(datos_seleccionada[0], datos_seleccionada[1], datos_seleccionada[2], datos_encuesta[1], datos_seleccionada[3])
+        generador.generarCSVdeLlamada(datos_seleccionada[0], datos_seleccionada[2], datos_seleccionada[1], datos_encuesta[1], datos_seleccionada[3])
 
         self.finDelCU()
 

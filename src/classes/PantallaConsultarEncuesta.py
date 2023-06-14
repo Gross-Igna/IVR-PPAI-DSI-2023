@@ -8,26 +8,6 @@ window = tk.Tk()
 window.title("Consultar Encuesta")
 
 
-def botonBuscar(pantalla, gestor, entry_desde, entry_hasta):
-    fechaDesde = pantalla.tomarFechaInicio(entry_desde)
-    fechaHasta = pantalla.tomarFechaFin(entry_hasta)
-
-    gestor.tomarFechaInicio(fechaDesde)
-    gestor.tomarFechaFin(fechaHasta)
-
-    gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
-
-
-def botonSeleccionarLlamada(pantalla, gestor, dropdow):
-    llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)
-    gestor.tomarSeleccionLlamada(llamada_seleccionada)
-    gestor.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
-
-
-def mostrar_exito(pantalla, gestor, datos_seleccionada, datos_encuesta):
-    messagebox.showinfo("Éxito", "Se ha generado con éxito!")
-    pantalla.tomarOpcionPresentacion(gestor, datos_seleccionada, datos_encuesta)
-
 
 class PantallaConsultarEncuesta:
     def __init__(self):
@@ -191,4 +171,27 @@ class PantallaConsultarEncuesta:
     def tomarOpcionPresentacion(self, gestor, datos_seleccionada, datos_encuesta):
         gestor.tomarOpcionDePresentacion(datos_seleccionada, datos_encuesta)
 
+    def no_hay_llamadas(self):
+        messagebox.showinfo("No hay llamadas", "No se encontraron llamadas en este periodo.")
+        # exit()
+
+def botonBuscar(pantalla, gestor, entry_desde, entry_hasta):
+    fechaDesde = pantalla.tomarFechaInicio(entry_desde)
+    fechaHasta = pantalla.tomarFechaFin(entry_hasta)
+
+    gestor.tomarFechaInicio(fechaDesde)
+    gestor.tomarFechaFin(fechaHasta)
+
+    gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
+
+
+def botonSeleccionarLlamada(pantalla, gestor, dropdow):
+    llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)
+    gestor.tomarSeleccionLlamada(llamada_seleccionada)
+    gestor.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
+
+
+def mostrar_exito(pantalla, gestor, datos_seleccionada, datos_encuesta):
+    messagebox.showinfo("Éxito", "Se ha generado con éxito!")
+    pantalla.tomarOpcionPresentacion(gestor, datos_seleccionada, datos_encuesta)
 
