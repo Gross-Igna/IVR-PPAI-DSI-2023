@@ -2,22 +2,35 @@ from tkinter import messagebox
 from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
+from abc import ABC, abstractmethod
+from ..classes.IteradorLlamadas import IteratorLlamadas
 
 
-class GestorConsultarEncuestas:
+class IAgregado(ABC):
+    @abstractmethod
+    def create_iterator(self):
+        pass
+
+
+class GestorConsultarEncuestas(IAgregado):
     def __init__(self):
         super().__init__()
         self.__fechaFinPeriodo = ''
         self.__fechaInicioPeriodo = ''
-        self.__llamadas = None
+        self.__llamadas = llamadas
         self.__llamadaSeleccionada = None
         self.__opcionPresentacion = None
+
+    def create_iterator(self):
+        fechas = [self.__fechaInicioPeriodo, self.__fechaFinPeriodo]
+        return IteratorLlamadas(fechas, self.__llamadas)
 
     def getFechaFinPeriodo(self):
         return self.__fechaFinPeriodo
 
     def tomarFechaFin(self, fecha_fin):
         self.__fechaFinPeriodo = fecha_fin
+        # todo desde aca buscar las llamadas
 
     def getFechaInicioPeriodo(self):
         return self.__fechaInicioPeriodo
@@ -46,18 +59,20 @@ class GestorConsultarEncuestas:
     def consultarEncuesta(self, pantalla,window):
         pantalla.solicitarSeleccionPeriodo(self)
 
-    def obtenerLlamadasPeriodoConEncuesta(self, pantalla):
+    def obtenerLlamadasPeriodoConEncuesta(self, pantalla):  # TODO revisar nombre es de periodo
+        iterador = self.create_iterator()
+        iterador.primero()
         llamadas_p_encuestas = []
-        fecha1 = self.getFechaInicioPeriodo()
-        if fecha1 != '':
-            for llamada in llamadas:
-                if llamada.esDePeriodo(self.__fechaInicioPeriodo, self.__fechaFinPeriodo):
-                    llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
-            if len(llamadas_p_encuestas) > 0:
-                self.setLlamadas(llamadas_p_encuestas)
-                pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
-            else:
-                pantalla.no_hay_llamadas()
+        while not iterador.ha_terminado():
+            llamada = iterador.actual()
+            if llamada is not None:
+                llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
+            iterador.siguiente()
+        if len(llamadas_p_encuestas) > 0:
+            self.setLlamadas(llamadas_p_encuestas)
+            pantalla.mostrarLlamadasEncuestaRespondida(llamadas_p_encuestas, self)
+        else:
+            pantalla.no_hay_llamadas()
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0

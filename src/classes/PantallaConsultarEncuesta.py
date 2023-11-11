@@ -8,7 +8,6 @@ window = tk.Tk()
 window.title("Consultar Encuesta")
 
 
-
 class PantallaConsultarEncuesta:
     def __init__(self):
         super().__init__()
@@ -183,7 +182,7 @@ def botonBuscar(pantalla, gestor, entry_desde, entry_hasta):
     gestor.tomarFechaFin(fechaHasta)
 
     gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
-
+    # TODO tomar fechas debe llamar a los metodos
 
 def botonSeleccionarLlamada(pantalla, gestor, dropdow):
     llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)

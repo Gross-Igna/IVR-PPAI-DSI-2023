@@ -78,9 +78,7 @@ class Llamada:
         fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
         fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d/%m/%y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
-            tiene_encuesta = self.tieneEncuestaRespondida()
-            if tiene_encuesta:
-                return True
+            return True
 
     def tieneEncuestaRespondida(self):
         return self.__encuestaEnviada
@@ -110,6 +108,7 @@ class Llamada:
         respuestas = self.getRespuestasDeEncuesta()
         fecha_encuesta = respuestas[0].getFechaEncuesta()
         return fecha_encuesta
+
 
 # Crear una lista de objetos de clase Llamada
 llamadas = [
