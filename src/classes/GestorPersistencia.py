@@ -35,7 +35,7 @@ from sqlalchemy.orm import sessionmaker
 
 class GestorPersistencia():
     def __init__(self):
-        self.__bdUrl = 'sqlite:///F:/Users/Nacho/Documents/Facultad/Cuarto año/IVR-PPAI-DSI-2023/ivr.db'
+        self.__bdUrl = 'sqlite:///C:/ivr.db'
         self.__engine = create_engine(self.__bdUrl, echo=False)
         self.__Base = declarative_base()
         self.__Session = sessionmaker(bind=self.__engine)
