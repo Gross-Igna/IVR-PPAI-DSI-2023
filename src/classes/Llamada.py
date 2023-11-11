@@ -2,11 +2,15 @@ from datetime import datetime
 from ..classes.Cliente import clientes
 from ..classes.CambioEstado import cambios_estado
 from ..classes.RespuestaDeCliente import respuestasSeleccionadas
-
-
-class Llamada:
+from ..classes.GestorPersistencia import GestorPersistencia;
+from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+class Llamada(Base):
     """En el constructor se inicializan los atributos"""
     """El doble guión es para encapsular el atributo (name mangling)"""
+    __tablename__ = 'llamadas'
+    __id = Column(Integer, Sequence('llamads_id_seq'), primary_key=True)
     def __init__(self):
         self.__descripcionOperador = ""
         self.__detalleAccionRequerida = ""
