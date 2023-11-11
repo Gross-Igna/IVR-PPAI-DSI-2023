@@ -4,7 +4,7 @@ from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
 from abc import ABC, abstractmethod
 from ..classes.IteradorLlamadas import IteratorLlamadas
-
+from ..classes.GestorPersistencia import GestorPersistencia
 
 class IAgregado(ABC):
     @abstractmethod
@@ -13,11 +13,13 @@ class IAgregado(ABC):
 
 
 class GestorConsultarEncuestas(IAgregado):
+
     def __init__(self):
+        gestorPersistencia = GestorPersistencia();
         super().__init__()
         self.__fechaFinPeriodo = ''
         self.__fechaInicioPeriodo = ''
-        self.__llamadas = llamadas
+        self.__llamadas = gestorPersistencia.getAllLlamadas()
         self.__llamadaSeleccionada = None
         self.__opcionPresentacion = None
 

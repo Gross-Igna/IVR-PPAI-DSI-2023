@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+
 # # Crear una clase Base para declarar modelos
 # Base = declarative_base()
 #
@@ -34,7 +35,12 @@ from sqlalchemy.orm import sessionmaker
 
 class GestorPersistencia():
     def __init__(self):
-        self.__bdUrl = 'sqlite:///ivr.db'
+        self.__bdUrl = 'sqlite:///F:/Users/Nacho/Documents/Facultad/Cuarto año/IVR-PPAI-DSI-2023/ivr.db'
         self.__engine = create_engine(self.__bdUrl, echo=False)
         self.__Base = declarative_base()
-        self.__session = sessionmaker(bind=self.__engine)
+        self.__Session = sessionmaker(bind=self.__engine)
+        self.__session = self.__Session()
+
+    def getAllLlamadas(self):
+        from ..classes.Llamada import Llamada
+        return self.__session.query(Llamada).all()

@@ -3,89 +3,99 @@ from ..classes.Cliente import clientes
 from ..classes.CambioEstado import cambios_estado
 from ..classes.RespuestaDeCliente import respuestasSeleccionadas
 from ..classes.GestorPersistencia import GestorPersistencia;
-from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey, Boolean, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 class Llamada(Base):
-    """En el constructor se inicializan los atributos"""
-    """El doble guión es para encapsular el atributo (name mangling)"""
+
+    "Es necesario que estos atributos se inicien aquí y no dentro del constructor para que sqlalchemy pueda acceder a ellos"
     __tablename__ = 'llamadas'
-    __id = Column(Integer, Sequence('llamads_id_seq'), primary_key=True)
-    def __init__(self):
-        self.__descripcionOperador = ""
-        self.__detalleAccionRequerida = ""
-        self.__duracion = 0
-        self.__encuestaEnviada = False
-        self.__observacionAuditor = ""
-        self.__respuestasDeEncuesta = None
-        self.__cambioEstado = None
-        self.__fechaHoraInicio = ''  # formato 03-06-23 dd-mm-aa
-        self.__cliente = None
+    id = Column(Integer, Sequence('llamadas_id_seq'), primary_key=True)
+    descripcionOperador = Column(String)
+    detalleAccionRequerida = Column(String)
+    duracion = Column(Integer)
+    encuestaEnviada = Column(Boolean)
+    observacionAuditor = Column(String)
+    respuestasDeEncuesta = Column(ARRAY(Integer))
+    cambioEstado = Column(Integer)
+    fechaHoraInicio = Column(String)
+    cliente = Column(Integer)
+
+    # def __init__(self):
+    #     self.__descripcionOperador = ""
+    #     self.__detalleAccionRequerida = ""
+    #     self.__duracion = 0
+    #     self.__encuestaEnviada = False
+    #     self.__observacionAuditor = ""
+    #     self.__respuestasDeEncuesta = None
+    #     self.__cambioEstado = None
+    #     self.fechaHoraInicio = ''  # formato 03-06-23 dd-mm-aa
+    #     self.__cliente = None
 
     """Getters y Setters"""
     def getDescripcionOperador(self):
-        return self.__descripcionOperador
+        return self.descripcionOperador
 
     def setDescripcionOperador(self, descripcion):
-        self.__descripcionOperador = descripcion
+        self.descripcionOperador = descripcion
 
     def getDetalleAccionRequerida(self):
-        return self.__detalleAccionRequerida
+        return self.detalleAccionRequerida
 
     def setDetalleAccionRequerida(self, detalle):
-        self.__detalleAccionRequerida = detalle
+        self.detalleAccionRequerida = detalle
 
     def getDuracion(self):
-        return self.__duracion
+        return self.duracion
 
     def setDuracion(self, duracion):
-        self.__duracion = duracion
+        self.duracion = duracion
 
     def getEncuestaEnviada(self):
-        return self.__encuestaEnviada
+        return self.encuestaEnviada
 
     def setEncuestaEnviada(self, encuesta):
-        self.__encuestaEnviada = encuesta
+        self.encuestaEnviada = encuesta
 
     def getObservacionAuditor(self):
-        return self.__observacionAuditor
+        return self.observacionAuditor
 
     def setObservacionAuditor(self, observacion):
-        self.__observacionAuditor = observacion
+        self.observacionAuditor = observacion
 
     def getRespuestasDeEncuesta(self):
-        return self.__respuestasDeEncuesta
+        return self.respuestasDeEncuesta
 
     def setRespuestasDeEncuesta(self, respuestas):
-        self.__respuestasDeEncuesta = respuestas
+        self.respuestasDeEncuesta = respuestas
 
     def getCambioEstado(self):
-        return self.__cambioEstado
+        return self.cambioEstado
 
     def setCambioEstado(self, cambio):
-        self.__cambioEstado = cambio
+        self.cambioEstado = cambio
 
     def getFechaHoraInicio(self):
-        return self.__fechaHoraInicio
+        return self.fechaHoraInicio
 
     def setFechaHoraInicio(self, fecha):
-        self.__fechaHoraInicio = fecha
+        self.fechaHoraInicio = fecha
 
     def getCliente(self):
-        return self.__cliente
+        return self.cliente
     
     def setCliente(self,cliente):
-        self.__cliente = cliente
+        self.cliente = cliente
 
     def esDePeriodo(self, fechaInicio , fechaFin):
         fecha_inicio = datetime.strptime(fechaInicio, "%d/%m/%y").date()
         fecha_fin = datetime.strptime(fechaFin, "%d/%m/%y").date()
-        fecha_llamada = datetime.strptime(self.__fechaHoraInicio, "%d/%m/%y").date()
+        fecha_llamada = datetime.strptime(self.fechaHoraInicio, "%d/%m/%y").date()
         if fecha_inicio <= fecha_llamada <= fecha_fin:
             return True
 
     def tieneEncuestaRespondida(self):
-        return self.__encuestaEnviada
+        return self.encuestaEnviada
 
     def mostrarLlamada(self):
         cliente = self.getCliente()
