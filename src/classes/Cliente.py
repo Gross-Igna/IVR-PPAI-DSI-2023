@@ -1,8 +1,19 @@
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 class Cliente:
-    def __init__(self):
-        self.__dni = ""
-        self.__nombre = ""
-        self.__nroCelular = ""
+
+    Base = declarative_base()
+    class Cliente(Base):
+        __tablename__ = 'clientes'
+
+        dni = Column(Integer, primary_key=True)
+        nombre = Column(String)
+        nroCelular = Column(String)
+
+        def __init__(self, dni, nombre, nroCelular):
+            self.dni = dni
+            self.nombre = nombre
+            self.nroCelular = nroCelular
 
     def getDni(self):
         return self.__dni

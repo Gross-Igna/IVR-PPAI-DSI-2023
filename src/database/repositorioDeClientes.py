@@ -12,7 +12,7 @@ class RepositorioDeClientes():
         self.session.add(cliente)
         self.session.commit()
 
-    def obtener(self, dni):
+    def obtenerPorDni(self, dni):
         return self.session.query(Cliente).filter(Cliente.dni == dni).first()
 
     def obtenerTodos(self):
