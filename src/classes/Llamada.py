@@ -1,7 +1,7 @@
 from datetime import datetime
 from ..classes.CambioEstado import cambios_estado
 from ..classes.RespuestaDeCliente import respuestasSeleccionadas
-from ..classes.GestorPersistencia import GestorPersistencia;
+from ..classes.GestorPersistencia import GestorPersistencia
 from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey, Boolean, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from ..database.repositorioDeClientes import RepositorioDeClientes
@@ -29,7 +29,7 @@ class Llamada(Base):
         self.duracion = duracion
         self.encuestaEnviada = encuestaEnviada
         self.observacionAuditor = observacionAuditor
-        self.respuestasDeEncuesta = respuestasDeEncuesta
+        self.respuestasDeEncuesta = respuestasSeleccionadas
         self.cambioEstado = cambioEstado
         self.fechaHoraInicio = fechaHoraInicio
         self.cliente = cliente
@@ -115,13 +115,13 @@ class Llamada(Base):
 
         respuestas = self.getRespuestasDeEncuesta()
         descripciones = []
-        for i in respuestas:
+        for i in respuestasSeleccionadas:
             desc = i.getDescripcionRta()
             descripciones.append(desc)
 
         return [nombre_cli, duracion, nombre_est, descripciones]
 
     def buscarFechaEncuesta(self):
-        respuestas = self.getRespuestasDeEncuesta()
+        respuestas = respuestasSeleccionadas
         fecha_encuesta = respuestas[0].getFechaEncuesta()
         return fecha_encuesta
