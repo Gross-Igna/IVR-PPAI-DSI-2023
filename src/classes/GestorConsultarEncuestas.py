@@ -71,7 +71,7 @@ class GestorConsultarEncuestas(IAgregado):
         while not iterador.ha_terminado():
             llamada = iterador.actual()
             if llamada is not None:
-                llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
+                llamadas_p_encuestas.append(llamada)
             iterador.siguiente()
         if len(llamadas_p_encuestas) > 0:
             self.setLlamadas(llamadas_p_encuestas)
