@@ -41,6 +41,5 @@ class GestorPersistencia():
         self.__Session = sessionmaker(bind=self.__engine)
         self.__session = self.__Session()
 
-    def getAllLlamadas(self):
-        from ..classes.Llamada import Llamada
-        return self.__session.query(Llamada).all()
+    def getSession(self):
+        return self.__session
