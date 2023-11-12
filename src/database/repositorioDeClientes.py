@@ -12,8 +12,13 @@ class RepositorioDeClientes():
         self.session.add(cliente)
         self.session.commit()
 
-    def obtenerPorDni(self, dni):
-        return self.session.query(Cliente).filter(Cliente.dni == dni).first()
+    def buscarPorDni(self, dni):
+        try:
+            cliente = self.session.query(Cliente).filter(Cliente.dni == dni).first()
+            return cliente
+        except Exception as e:
+            print(f"Error al obtener el cliente por DNI: {e}")
+            return None
 
     def obtenerTodos(self):
         return self.session.query(Cliente).all()

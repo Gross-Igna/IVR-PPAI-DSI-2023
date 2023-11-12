@@ -1,10 +1,11 @@
 from datetime import datetime
-from ..classes.Cliente import clientes
 from ..classes.CambioEstado import cambios_estado
 from ..classes.RespuestaDeCliente import respuestasSeleccionadas
 from ..classes.GestorPersistencia import GestorPersistencia;
 from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey, Boolean, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
+from ..database.repositorioDeClientes import RepositorioDeClientes
+
 Base = declarative_base()
 class Llamada(Base):
 
@@ -99,13 +100,14 @@ class Llamada(Base):
         return self.encuestaEnviada
 
     def mostrarLlamada(self):
-        cliente = self.getCliente()
+        repositorioDeClientes = RepositorioDeClientes()
+        cliente = repositorioDeClientes.buscarPorDni(self.getCliente())
         nombre_cli = cliente.getNombre()
         duracion = self.getDuracion()
         nombre_est = ""
 
         cambios = self.getCambioEstado()
-        for i in cambios:
+        for i in cambios_estado:
             es_ultimo = i.esUltimoCambioEstado()
             if es_ultimo:
                 estado = i.getEstado()
