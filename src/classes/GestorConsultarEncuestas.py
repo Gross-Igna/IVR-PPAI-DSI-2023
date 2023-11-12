@@ -1,5 +1,5 @@
 from tkinter import messagebox
-from ..classes.Llamada import llamadas
+##NO USAR HARDCODE DE LLAMADAS from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
 from abc import ABC, abstractmethod
@@ -81,12 +81,12 @@ class GestorConsultarEncuestas(IAgregado):
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0
-        for i in range(len(llamadas)):
-            fecha_iteradora = llamadas[i].getFechaHoraInicio()
+        for i in range(len(self.__llamadas)):
+            fecha_iteradora = self.__llamadas[i].getFechaHoraInicio()
             if fecha_iteradora == llamada_fecha:
                 indice = i
                 break
-        LA_llamada = llamadas[indice]
+        LA_llamada = self.__llamadas[indice]
         datos_seleccionada = LA_llamada.mostrarLlamada()
         #  return [nombre_cli, duracion, nombre_est, respuestas[]]
         datos_encuesta = []
