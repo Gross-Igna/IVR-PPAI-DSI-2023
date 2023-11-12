@@ -72,8 +72,12 @@ class PantallaConsultarEncuesta:
         else:
             state = 'disabled'
 
+        fechasDeLlamadas = []
+        for i in range(len(llamadas)):
+            fechasDeLlamadas.append(llamadas[i].getFechaHoraInicio())
+
         # Crear el combobox para seleccionar la encuesta (inicialmente deshabilitado)
-        combobox_encuestas = tk.ttk.Combobox(window, state=state, values=llamadas)
+        combobox_encuestas = tk.ttk.Combobox(window, state=state, values=fechasDeLlamadas)
         combobox_encuestas.pack(pady=5)
 
         button_seleccionar = tk.Button(window, text="Seleccionar",
