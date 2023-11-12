@@ -8,8 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 class Llamada(Base):
 
-    "Es necesario que estos atributos se inicien aquí y no dentro del constructor para que sqlalchemy pueda acceder a ellos"
     __tablename__ = 'llamadas'
+
     id = Column(Integer, Sequence('llamadas_id_seq'), primary_key=True)
     descripcionOperador = Column(String)
     detalleAccionRequerida = Column(String)
@@ -21,16 +21,17 @@ class Llamada(Base):
     fechaHoraInicio = Column(String)
     cliente = Column(Integer)
 
-    # def __init__(self):
-    #     self.__descripcionOperador = ""
-    #     self.__detalleAccionRequerida = ""
-    #     self.__duracion = 0
-    #     self.__encuestaEnviada = False
-    #     self.__observacionAuditor = ""
-    #     self.__respuestasDeEncuesta = None
-    #     self.__cambioEstado = None
-    #     self.fechaHoraInicio = ''  # formato 03-06-23 dd-mm-aa
-    #     self.__cliente = None
+    def __init__(self, descripcionOperador, detalleAccionRequerida, duracion, encuestaEnviada,
+                 observacionAuditor, respuestasDeEncuesta, cambioEstado, fechaHoraInicio, cliente):
+        self.descripcionOperador = descripcionOperador
+        self.detalleAccionRequerida = detalleAccionRequerida
+        self.duracion = duracion
+        self.encuestaEnviada = encuestaEnviada
+        self.observacionAuditor = observacionAuditor
+        self.respuestasDeEncuesta = respuestasDeEncuesta
+        self.cambioEstado = cambioEstado
+        self.fechaHoraInicio = fechaHoraInicio
+        self.cliente = cliente
 
     """Getters y Setters"""
     def getDescripcionOperador(self):
@@ -122,48 +123,3 @@ class Llamada(Base):
         respuestas = self.getRespuestasDeEncuesta()
         fecha_encuesta = respuestas[0].getFechaEncuesta()
         return fecha_encuesta
-
-
-# Crear una lista de objetos de clase Llamada
-llamadas = [
-    Llamada(),
-    Llamada(),
-    Llamada()
-]
-
-# Acceder a los atributos de un objeto de la lista
-llamada1 = llamadas[0]
-llamada1.descripcionOperador = "Descripción del operador 1"
-llamada1.detalleAccionRequerida = "Detalle de la acción requerida 1"
-llamada1.setDuracion(120)
-llamada1.setEncuestaEnviada(True)
-llamada1.observacionAuditor = "Observación del auditor 1"
-llamada1.setFechaHoraInicio("6/7/23")
-llamada1.setCliente(clientes[0])
-llamada1.setCambioEstado([cambios_estado[0], cambios_estado[1], cambios_estado[2]])
-llamada1.setRespuestasDeEncuesta([respuestasSeleccionadas[0], respuestasSeleccionadas[1], respuestasSeleccionadas[2]])
-
-
-# Acceder a los atributos de otro objeto de la lista
-llamada2 = llamadas[1]
-llamada2.setDescripcionOperador("Descripción del operador 2")
-llamada2.setDetalleAccionRequerida("Detalle de la acción requerida 2")
-llamada2.setDuracion(180)
-llamada2.setEncuestaEnviada(True)
-llamada2.setObservacionAuditor("Observación del auditor 2")
-llamada2.setFechaHoraInicio("8/7/23")
-llamada2.setCliente(clientes[1])
-llamada2.setCambioEstado([cambios_estado[3], cambios_estado[4]])
-llamada2.setRespuestasDeEncuesta([respuestasSeleccionadas[3], respuestasSeleccionadas[4], respuestasSeleccionadas[5]])
-
-# Acceder a los atributos de otro objeto de la lista
-llamada3 = llamadas[2]
-llamada3.descripcionOperador = "Descripción del operador 3"
-llamada3.detalleAccionRequerida = "Detalle de la acción requerida 3"
-llamada3.setDuracion(90)
-llamada3.setEncuestaEnviada(True)
-llamada3.observacionAuditor = "Observación del auditor 3"
-llamada3.setFechaHoraInicio("9/7/23")
-llamada3.setCliente(clientes[2])
-llamada3.setCambioEstado([cambios_estado[5], cambios_estado[6]])
-llamada3.setRespuestasDeEncuesta([respuestasSeleccionadas[6], respuestasSeleccionadas[7], respuestasSeleccionadas[8]])
