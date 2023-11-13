@@ -10,3 +10,11 @@ class RepositorioDeEstados():
 
     def obtenerTodos(self):
         return self.session.query(Estado).all()
+
+    def obtenerPorId(self, id):
+        try:
+            estado = self.session.query(Estado).filter(Estado.id == id).first()
+            return estado
+        except Exception as e:
+            print(f"Error al obtener el estado por ID: {e}")
+            return None

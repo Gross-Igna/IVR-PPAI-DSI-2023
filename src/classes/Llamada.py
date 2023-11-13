@@ -1,16 +1,16 @@
 from datetime import datetime
-from ..classes.CambioEstado import cambios_estado
 from ..classes.RespuestaDeCliente import respuestasSeleccionadas
 from ..classes.GestorPersistencia import GestorPersistencia
 from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey, Boolean, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from ..database.repositorioDeClientes import RepositorioDeClientes
+from ..database.repositorioDeCambiosDeEstado import RepositorioDeCambiosDeEstado
+from ..database.repositorioDeEstados import RepositorioDeEstados
 
 Base = declarative_base()
 class Llamada(Base):
 
     __tablename__ = 'llamadas'
-
     id = Column(Integer, Sequence('llamadas_id_seq'), primary_key=True)
     descripcionOperador = Column(String)
     detalleAccionRequerida = Column(String)
@@ -107,11 +107,18 @@ class Llamada(Base):
         nombre_est = ""
 
         cambios = self.getCambioEstado()
+        repositorioDeCambiosDeEstado = RepositorioDeCambiosDeEstado()
+        cambios_estado = repositorioDeCambiosDeEstado.obtenerTodos()
+        print(cambios_estado)
         for i in cambios_estado:
+            print(i)
+            if i.getLlamada_id() != self.id:
+                continue
             es_ultimo = i.esUltimoCambioEstado()
             if es_ultimo:
-                estado = i.getEstado()
-                nombre_est = estado.getNombre()
+                id_estado = i.getEstado_id()
+                repositorioDeEstados = RepositorioDeEstados()
+                nombre_est = repositorioDeEstados.obtenerPorId(id_estado).getNombre()
 
         respuestas = self.getRespuestasDeEncuesta()
         descripciones = []

@@ -1,5 +1,4 @@
 from tkinter import messagebox
-##NO USAR HARDCODE DE LLAMADAS from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
 from abc import ABC, abstractmethod
