@@ -53,7 +53,7 @@ class PantallaConsultarEncuesta:
         button_cancelar = tk.Button(window, text="Cancelar", bg="salmon", command=exit)
         button_cancelar.pack(pady=10, side="bottom")
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
+        linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
 
     def tomarFechaInicio(self, entry_fecha_desde):
@@ -92,7 +92,7 @@ class PantallaConsultarEncuesta:
                                        command=lambda: botonSeleccionarLlamada(self, gestor, combobox_encuestas))
         button_seleccionar.pack(pady=10)
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
+        linea_divisoria = ttk.Separator(window, orient="horizontal")
         linea_divisoria.pack(fill="x", padx=10)
 
 
