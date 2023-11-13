@@ -1,10 +1,10 @@
 from tkinter import messagebox
-from ..classes.Llamada import llamadas
+##NO USAR HARDCODE DE LLAMADAS from ..classes.Llamada import llamadas
 from ..classes.Encuesta import encuestas
 from ..utils.generadorCSV import GeneradorCSV
 from abc import ABC, abstractmethod
 from ..classes.IteradorLlamadas import IteratorLlamadas
-
+from ..database.repositorioDeLlamadas import RepositorioDeLlamadas
 
 class IAgregado(ABC):
     @abstractmethod
@@ -13,13 +13,18 @@ class IAgregado(ABC):
 
 
 class GestorConsultarEncuestas(IAgregado):
+
     def __init__(self):
+        self.__repositorioDeLlamadas = RepositorioDeLlamadas()
         super().__init__()
         self.__fechaFinPeriodo = ''
         self.__fechaInicioPeriodo = ''
-        self.__llamadas = llamadas
+        self.__llamadas = []
         self.__llamadaSeleccionada = None
         self.__opcionPresentacion = None
+
+        ## CARGAR LLAMADAS DE LA BASE DE DATOS
+        self.__llamadas = self.__repositorioDeLlamadas.obtenerTodas()
 
     def create_iterator(self):
         fechas = [self.__fechaInicioPeriodo, self.__fechaFinPeriodo]
@@ -66,7 +71,7 @@ class GestorConsultarEncuestas(IAgregado):
         while not iterador.ha_terminado():
             llamada = iterador.actual()
             if llamada is not None:
-                llamadas_p_encuestas.append(llamada.getFechaHoraInicio())
+                llamadas_p_encuestas.append(llamada)
             iterador.siguiente()
         if len(llamadas_p_encuestas) > 0:
             self.setLlamadas(llamadas_p_encuestas)
@@ -76,12 +81,12 @@ class GestorConsultarEncuestas(IAgregado):
 
     def mostrarLlamadaSeleccionada(self, llamada_fecha, pantalla):
         indice = 0
-        for i in range(len(llamadas)):
-            fecha_iteradora = llamadas[i].getFechaHoraInicio()
+        for i in range(len(self.__llamadas)):
+            fecha_iteradora = self.__llamadas[i].getFechaHoraInicio()
             if fecha_iteradora == llamada_fecha:
                 indice = i
                 break
-        LA_llamada = llamadas[indice]
+        LA_llamada = self.__llamadas[indice]
         datos_seleccionada = LA_llamada.mostrarLlamada()
         #  return [nombre_cli, duracion, nombre_est, respuestas[]]
         datos_encuesta = []

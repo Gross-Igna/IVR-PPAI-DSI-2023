@@ -1,6 +1,4 @@
 from ..classes.Estado import estados
-
-
 class CambioEstado:
     def __init__(self):
         self.__fechaHoraInicio = None
