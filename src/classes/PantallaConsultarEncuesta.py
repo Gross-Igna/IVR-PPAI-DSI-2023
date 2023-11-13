@@ -3,14 +3,19 @@ from tkinter import ttk, messagebox
 from src.classes.GestorConsultarEncuestas import GestorConsultarEncuestas
 
 gestor = None
+
 # Crear la ventana principal
 window = tk.Tk()
 window.title("Consultar Encuesta")
 
+botones_borrar = ['boton_aceptar', 'frame_detalles', "frame_opciones", "linea"]
+
 
 class PantallaConsultarEncuesta:
     def __init__(self):
-        super().__init__()
+        #super().__init__()
+        self.boton_aceptar = None
+        self.frame_inputs = None
     
     def opConsultarEncuesta(self):
         self.habilitarPantalla()
@@ -44,10 +49,11 @@ class PantallaConsultarEncuesta:
         button_buscar = tk.Button(window, text="Buscar", command=lambda: botonBuscar(self, gestor, entry_fecha_desde, entry_fecha_hasta))
         button_buscar.pack(pady=10)
 
+
         button_cancelar = tk.Button(window, text="Cancelar", bg="salmon", command=exit)
         button_cancelar.pack(pady=10, side="bottom")
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
         linea_divisoria.pack(fill="x", padx=10)
 
     def tomarFechaInicio(self, entry_fecha_desde):
@@ -65,8 +71,10 @@ class PantallaConsultarEncuesta:
         self.solicitarSeleccionLlamada(llamadas, gestor)
 
     def solicitarSeleccionLlamada(self, llamadas, gestor):
+
         label_titulo = tk.Label(window, text="Seleccionar llamada")
         label_titulo.pack()
+
         if len(llamadas) > 0:
             state = 'normal'
         else:
@@ -81,11 +89,13 @@ class PantallaConsultarEncuesta:
         combobox_encuestas.pack(pady=5)
 
         button_seleccionar = tk.Button(window, text="Seleccionar",
-                                  command=lambda: botonSeleccionarLlamada(self, gestor, combobox_encuestas))
+                                       command=lambda: botonSeleccionarLlamada(self, gestor, combobox_encuestas))
         button_seleccionar.pack(pady=10)
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
         linea_divisoria.pack(fill="x", padx=10)
+
+
 
     def tomarSeleccionLlamada(self, dropdown):
         llamada_seleccionada = dropdown.get()
@@ -93,7 +103,9 @@ class PantallaConsultarEncuesta:
 
     def mostrarLlamadaEncuesta(self, datos_seleccionada, datos_encuesta, gestor):
 
-        frame_detalles = tk.Frame(window)
+
+
+        frame_detalles = tk.Frame(window, name="frame_detalles")
         frame_detalles.pack(pady=10)
 
         etiqueta_estado = tk.Label(frame_detalles, text="Estado: ")
@@ -115,7 +127,7 @@ class PantallaConsultarEncuesta:
         texto_descripcion.pack(fill="both", expand=True)
         texto_descripcion.configure(state="disabled")
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
         linea_divisoria.pack(fill="x", padx=10)
 
         tabla = ttk.Treeview(frame_detalles, columns=("Respuesta",))
@@ -126,7 +138,7 @@ class PantallaConsultarEncuesta:
         frame_opciones = tk.Frame(window)
         frame_opciones.pack()
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
         linea_divisoria.pack(fill="x", padx=10)
 
         etiqueta_estado.config(text="Estado: {}".format(datos_seleccionada[2]))
@@ -150,10 +162,12 @@ class PantallaConsultarEncuesta:
         self.solicitarSeleccionPresentacion(datos_seleccionada, datos_encuesta,gestor)
 
     def solicitarSeleccionPresentacion(self, datos_seleccionada, datos_encuesta, gestor):
-        frame_opciones = tk.Frame(window)
+
+
+        frame_opciones = tk.Frame(window, name= "frame_opciones")
         frame_opciones.pack()
 
-        linea_divisoria = ttk.Separator(window, orient="horizontal")
+        linea_divisoria = ttk.Separator(window, orient="horizontal", name="linea")
         linea_divisoria.pack(fill="x", padx=10)
 
         label_generar = tk.Label(frame_opciones, text="Generar archivo:")
@@ -168,8 +182,10 @@ class PantallaConsultarEncuesta:
         radio_imprimir = tk.Radiobutton(frame_opciones, text="Imprimir", variable=opcion_var, value="Imprimir")
         radio_imprimir.pack(side="left")
 
-        boton_aceptar = tk.Button(window, text="Aceptar", command=lambda :mostrar_exito(self, gestor, datos_seleccionada, datos_encuesta), state='normal')
-        boton_aceptar.pack(pady=10)
+        #if self.boton_aceptar is None:
+        self.boton_aceptar = tk.Button(window, name="boton_aceptar", text="Aceptar", command=lambda :mostrar_exito(self, gestor, datos_seleccionada, datos_encuesta), state='normal')
+        self.boton_aceptar.pack(pady=10)
+
 
     def tomarOpcionPresentacion(self, gestor, datos_seleccionada, datos_encuesta):
         gestor.tomarOpcionDePresentacion(datos_seleccionada, datos_encuesta)
@@ -188,7 +204,29 @@ def botonBuscar(pantalla, gestor, entry_desde, entry_hasta):
     gestor.obtenerLlamadasPeriodoConEncuesta(pantalla)
     # TODO tomar fechas debe llamar a los metodos
 
+
 def botonSeleccionarLlamada(pantalla, gestor, dropdow):
+    widgets_a_destruir = []
+
+    for widget in window.winfo_children():
+        if widget.winfo_class() == 'Frame' and widget.winfo_children():
+            if widget.winfo_name() in botones_borrar:
+            # Almacenar el frame y todos sus widgets hijos para destruir más tarde
+                widgets_a_destruir.append(widget)
+
+        if widget.winfo_class() == 'Button':
+            # Almacenar el botón para destruir más tarde si es necesario
+            if widget.winfo_name() in botones_borrar:
+                widgets_a_destruir.append(widget)
+
+        if widget.winfo_class() == 'Separator':
+            # Almacenar el botón para destruir más tarde si es necesario
+            if widget.winfo_name() in botones_borrar:
+                widgets_a_destruir.append(widget)
+
+    for widget in widgets_a_destruir:
+        widget.destroy()
+
     llamada_seleccionada = pantalla.tomarSeleccionLlamada(dropdow)
     gestor.tomarSeleccionLlamada(llamada_seleccionada)
     gestor.mostrarLlamadaSeleccionada(llamada_seleccionada, pantalla)
