@@ -1,12 +1,12 @@
 from ..classes.GestorPersistencia import GestorPersistencia
-from ..classes.Llamada import Llamada
+from ..classes.Estado import Estado
 
-class RepositorioDeLlamadas():
+class RepositorioDeEstados():
 
     persistencia = GestorPersistencia();
 
     def __init__(self):
         self.session = self.persistencia.getSession()
 
-    def obtenerTodas(self):
-        return self.session.query(Llamada).all()
+    def obtenerTodos(self):
+        return self.session.query(Estado).all()

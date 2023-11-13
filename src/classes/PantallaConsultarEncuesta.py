@@ -147,7 +147,7 @@ class PantallaConsultarEncuesta:
         for i in range(len(preguntas)):
             tabla.insert("", tk.END, text=preguntas[i], values=(respuestas[i]))
 
-        self.solicitarSeleccionPresentacion(datos_seleccionada, datos_encuesta,gestor)
+        self.solicitarSeleccionPresentacion(datos_seleccionada, datos_encuesta, gestor)
 
     def solicitarSeleccionPresentacion(self, datos_seleccionada, datos_encuesta, gestor):
         frame_opciones = tk.Frame(window)

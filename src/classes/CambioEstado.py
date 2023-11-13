@@ -1,4 +1,6 @@
-from ..classes.Estado import estados
+##from ..classes.Estado import estados
+from ..database.repositorioDeEstados import RepositorioDeEstados
+
 class CambioEstado:
     def __init__(self):
         self.__fechaHoraInicio = None
@@ -28,6 +30,10 @@ class CambioEstado:
         if fechaFin is None:
             return True
 
+
+repositorioDeEstados = RepositorioDeEstados()
+estados = repositorioDeEstados.obtenerTodos()
+print(estados)
 
 cambio1 = CambioEstado()  # iniciada para llamada 1
 cambio1.fechaHoraInicio = "2023-06-01 10:00:00"
